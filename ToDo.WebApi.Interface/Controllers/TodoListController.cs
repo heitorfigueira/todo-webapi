@@ -16,10 +16,37 @@ namespace ToDo.WebApi.Interface.Controllers
             _todoListService = todoListService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Create(CreateToDoList request)
         {
             return Ok(_todoListService.Create(request));
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            return Ok(_todoListService.Delete(id));
+        }
+
+        [HttpPost]
+        [Route("query")]
+        public IActionResult List(ListToDoList request)
+        {
+            return Ok(_todoListService.List(request));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_todoListService.Get(id));
+        }
+
+        [HttpPut]
+        public IActionResult Update(UpdateToDoList request)
+        {
+            return Ok(_todoListService.Update(request));
         }
     }
 }

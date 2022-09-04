@@ -6,11 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 var (services, configuration) = builder.GetServicesAndConfiguration();
 
-var assemblies = AppDomain.CurrentDomain
-                        .GetAssemblies()
-                        .Where(ass => ass.FullName!
-                                         .StartsWith("ToDo."))
-                        .ToArray();
+var assemblies = Directory.GetFiles(
+                        AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+                        .Select(dll => Assembly.Load(
+                            AssemblyName.GetAssemblyName(dll)))
+                        .Where(ass => ass.FullName!.StartsWith("ToDo.")).ToArray();
 
 services.AddServicesFromAssemblies(configuration, assemblies);
 

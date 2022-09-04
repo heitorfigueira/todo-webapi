@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
+using ToDo.WebApi.Application.Services;
 
 namespace ToDo.WebApi.Interface.Controllers
 {
@@ -20,6 +21,33 @@ namespace ToDo.WebApi.Interface.Controllers
         public IActionResult Create(CreateToDoItem request)
         {
             return Ok(_todoItemService.Create(request));
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            return Ok(_todoItemService.Delete(id));
+        }
+
+        [HttpPost]
+        [Route("query")]
+        public IActionResult List(ListToDoItem request)
+        {
+            return Ok(_todoItemService.List(request));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_todoItemService.Get(id));
+        }
+
+        [HttpPut]
+        public IActionResult Update(UpdateToDoItem request)
+        {
+            return Ok(_todoItemService.Update(request));
         }
     }
 }

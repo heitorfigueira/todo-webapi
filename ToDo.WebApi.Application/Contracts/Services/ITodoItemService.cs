@@ -10,6 +10,10 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface ITodoItemService
     {
-        TodoItem Create(CreateToDoItem request);
+        TodoItem? Create(CreateToDoItem request);
+        TodoItem? Update(UpdateToDoItem request);
+        TodoItem? Delete(int id);
+        TodoItem? Get(int id);
+        IEnumerable<TodoItem> List(ListToDoItem request);
     }
 }

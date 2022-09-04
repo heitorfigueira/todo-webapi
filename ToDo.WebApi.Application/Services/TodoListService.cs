@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,16 @@ namespace ToDo.WebApi.Application.Services
     {
         private readonly ITodoItemService _itemService;
         private readonly ITodoListRepository _todoListRepository;
-        private readonly IMapper _mapper;
 
         public TodoListService(
             ITodoItemService itemService,
             ITodoListRepository todoListRepository,
-            IMapper mapper)
+            IMapper mapper) : 
+            base(mapper)
         {
             _itemService = itemService;
             _todoListRepository = todoListRepository;
-            _mapper = mapper;
         }
-
         public TodoList Create(CreateToDoList request)
         {
             TodoList? list = null;
@@ -44,6 +43,31 @@ namespace ToDo.WebApi.Application.Services
             }
 
             return list;
+        }
+
+        public TodoList? Delete(int id)
+        {
+            var list = _todoListRepository.Get(id);
+
+            _todoListRepository.Delete(id);
+
+            return list;
+        }
+
+        public TodoList? Get(int id)
+        {
+            return _todoListRepository.Get(id);
+        }
+
+        public IEnumerable<TodoList> List(ListToDoList request)
+        {
+            //TODO: query through dapper
+            throw new NotImplementedException();
+        }
+
+        public TodoList? Update(UpdateToDoList request)
+        {
+            return _todoListRepository.Update(request.list) ? request.list : null;
         }
     }
 }
