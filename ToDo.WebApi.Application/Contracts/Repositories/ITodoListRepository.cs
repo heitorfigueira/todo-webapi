@@ -5,15 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using WebApi.Framework.DataAccess.Repositories;
 
 namespace ToDo.WebApi.Application.Contracts.Services
 {
-    public interface ITodoListRepository
+    public interface ITodoListRepository : IRepository<TodoList>
     {
-        int Create(TodoList request);
-        TodoList? Get(int id);
-        TodoList? Delete(int id);
-        TodoList? Delete(TodoList list);
-        bool Update(TodoList list);
     }
 }
