@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.Framework.DataAccess.Entities;
+using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities
 {

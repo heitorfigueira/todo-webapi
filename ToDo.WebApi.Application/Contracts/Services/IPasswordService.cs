@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDo.WebApi.Domain.Enums
+namespace ToDo.WebApi.Application.Contracts.Services
 {
-    public enum UserTypes
+    public interface IPasswordService
     {
-        Administrator = 0,
-        Common,
-        Support
     }
 }

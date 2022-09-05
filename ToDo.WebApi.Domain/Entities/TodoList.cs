@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.Framework.DataAccess.Entities;
+using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities
 {
@@ -12,6 +12,6 @@ namespace ToDo.WebApi.Domain.Entities
         public string Name { get; set; }
         public string? Description { get; set; }
 
-        public virtual ICollection<TodoItem> Items { get; set; }
+        public virtual ICollection<TodoItem>? Items { get; set; }
     }
 }
