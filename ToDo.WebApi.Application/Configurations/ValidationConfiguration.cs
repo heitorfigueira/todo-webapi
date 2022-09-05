@@ -1,13 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Application.Configurations
@@ -17,8 +12,8 @@ namespace ToDo.WebApi.Application.Configurations
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddFluentValidation()
-                .AddValidatorsFromAssembly(typeof(ValidationConfiguration).Assembly);
+                .AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

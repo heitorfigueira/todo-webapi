@@ -1,7 +1,7 @@
 ﻿using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Infrastructure.Contexts;
-using WebApi.Framework.DataAccess.Repositories.EntityFramework;
+using WebApi.Framework.Data.Repositories.EntityFramework;
 
 namespace ToDo.WebApi.Application.Services
 {

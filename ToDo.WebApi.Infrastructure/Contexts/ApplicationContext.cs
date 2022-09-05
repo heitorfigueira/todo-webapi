@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain.Entities.Relations;
 
 namespace ToDo.WebApi.Infrastructure.Contexts
 {
@@ -20,10 +21,15 @@ namespace ToDo.WebApi.Infrastructure.Contexts
 
         public DbSet<TodoList> TodoLists { get; set; }
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<AccountTodoList> AccountTodoList { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(_config["ConnectionStrings:DefaultDatabaseConnection"]);
         }
-    }
+
+    } 
 }

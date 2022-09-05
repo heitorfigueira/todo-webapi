@@ -5,7 +5,6 @@ namespace ToDo.WebApi.Application.Validations
 {
     public class CreateTodoListValidator : AbstractValidator<CreateToDoList>
     {
-
         public CreateTodoListValidator()
         {
             RuleFor(r => r.Description)
