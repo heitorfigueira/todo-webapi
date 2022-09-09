@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var (services, configuration) = builder.GetServicesAndConfiguration();
 
-builder.UseSerilog(configuration);
+builder.UseSerilogFromConfigurationFile(configuration);
 
 var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                           .Select(dll => Assembly.Load(AssemblyName.GetAssemblyName(dll)))

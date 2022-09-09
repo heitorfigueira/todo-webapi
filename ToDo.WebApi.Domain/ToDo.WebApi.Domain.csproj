@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\webapi-framework\WebApi.Framework.csproj" />
+    <ProjectReference Include="..\..\webapi-framework\WebApi.Framework.csproj" />
   </ItemGroup>
 
 </Project>

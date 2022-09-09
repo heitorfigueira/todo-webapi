@@ -8,7 +8,7 @@ using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities
 {
-    public class TodoItem : EntityBaseIncrementalId
+    public class TodoItem : EntityBaseIdentity
     {
         public string Description { get; set; }
         public bool Done { get; set; }

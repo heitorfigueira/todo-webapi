@@ -7,7 +7,7 @@ using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities.Relations
 {
-    public class AccountTodoList : EntityBaseIncrementalId
+    public class AccountTodoList : EntityBaseIdentity
     {
         public Guid AccountId { get; set; }
         public int TodoListId { get; set; }

@@ -8,12 +8,7 @@ namespace ToDo.WebApi.Interface.Configurations
         public void AddMiddlewareInstaller(WebApplication app)
         {
             app.UseExceptionHandler("/error");
-            app.Map("/error", (HttpContext httpContext) =>
-            {
-                Exception? exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-                return Results.Problem();
-            });
+            app.Map("/error", (HttpContext httpContext) => Results.Problem());
         }
     }
 }

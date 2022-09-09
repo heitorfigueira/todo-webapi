@@ -8,6 +8,6 @@ namespace ToDo.WebApi.Application.DTOs.Requests
 {
     public class AuthRequests
     {
-        public record Auth(string username, string password);
+        public record Auth(string Email, string Password);
     }
 }

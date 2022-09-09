@@ -4,7 +4,7 @@ using WebApi.Framework.Data.Repositories;
 
 namespace ToDo.WebApi.Application.Contracts.Services
 {
-    public interface ITodoItemRepository : IRepository<TodoItem>
+    public interface ITodoItemRepository : IRepositoryIdentity<TodoItem>
     {
     }
 }

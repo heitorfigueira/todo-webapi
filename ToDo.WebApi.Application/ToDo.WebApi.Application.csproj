@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\webapi-framework\WebApi.Framework.csproj" />
     <ProjectReference Include="..\ToDo.WebApi.Domain\ToDo.WebApi.Domain.csproj" />
   </ItemGroup>
 

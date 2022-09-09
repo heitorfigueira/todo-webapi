@@ -30,6 +30,5 @@ namespace ToDo.WebApi.Infrastructure.Contexts
         {
             optionsBuilder.UseNpgsql(_config["ConnectionStrings:DefaultDatabaseConnection"]);
         }
-
     } 
 }

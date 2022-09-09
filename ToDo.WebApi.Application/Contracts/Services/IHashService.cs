@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
 namespace ToDo.WebApi.Application.Contracts.Services
 {
-    public interface IPasswordService
+    public interface IHashService
     {
-        bool VerifyLogin(Auth auth, string hashedPassword);
         string HashPassword(string password);
+        bool VerifyHashedPassword(string hashedPassword, string providedPassword);
     }
 }

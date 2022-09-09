@@ -11,13 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Domain", "ToDo.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Application", "ToDo.WebApi.Application\ToDo.WebApi.Application.csproj", "{4079077A-B959-4F02-B35D-DCE1961D5493}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Framework", "..\..\webapi-framework\WebApi.Framework.csproj", "{226070C4-4FE5-40E8-9AE1-F61D6A1D8E50}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{788863EC-AEE6-483D-A7CE-ACEBBFE172DA}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		ToDo.WebApi.Interface\dockerfile = ToDo.WebApi.Interface\dockerfile
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests", "ToDo.WebApi.Tests\ToDo.WebApi.Tests.csproj", "{B225EC9F-CF10-4DBB-9DB9-F19578FD1541}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Framework", "..\webapi-framework\WebApi.Framework.csproj", "{8EA370A8-31CF-4F2C-80A3-7DF485DDEFE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +43,14 @@ Global
 		{4079077A-B959-4F02-B35D-DCE1961D5493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4079077A-B959-4F02-B35D-DCE1961D5493}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4079077A-B959-4F02-B35D-DCE1961D5493}.Release|Any CPU.Build.0 = Release|Any CPU
-		{226070C4-4FE5-40E8-9AE1-F61D6A1D8E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{226070C4-4FE5-40E8-9AE1-F61D6A1D8E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{226070C4-4FE5-40E8-9AE1-F61D6A1D8E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{226070C4-4FE5-40E8-9AE1-F61D6A1D8E50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B225EC9F-CF10-4DBB-9DB9-F19578FD1541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B225EC9F-CF10-4DBB-9DB9-F19578FD1541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B225EC9F-CF10-4DBB-9DB9-F19578FD1541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B225EC9F-CF10-4DBB-9DB9-F19578FD1541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA370A8-31CF-4F2C-80A3-7DF485DDEFE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA370A8-31CF-4F2C-80A3-7DF485DDEFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA370A8-31CF-4F2C-80A3-7DF485DDEFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA370A8-31CF-4F2C-80A3-7DF485DDEFE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
