@@ -10,6 +10,6 @@ namespace ToDo.WebApi.Application.Contracts.Repositories
 {
     public interface IUserRepository : IRepository<User, Guid>
     {
-        User? GetByUsername(string username);
+        User? GetByEmail(string username);
     }
 }

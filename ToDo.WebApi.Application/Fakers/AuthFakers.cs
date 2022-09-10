@@ -1,14 +1,14 @@
 ﻿using Bogus;
 using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
-namespace ToDo.WebApi.Tests.Fakers
+namespace ToDo.WebApi.Application.Fakers
 {
     public static class AuthFakers
     {
         private static readonly Faker<Auth> _authFaker =
             new Faker<Auth>().CustomInstantiator(
                 fake => new Auth(
-                        fake.Person.Email, 
+                        fake.Person.Email,
                         fake.Person.FirstName + fake.Random.Int()));
 
         public static Auth GenerateSingleAuth()

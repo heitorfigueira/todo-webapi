@@ -8,14 +8,14 @@ namespace ToDo.WebApi.Application.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IJwtService _jwtProvider;
-        private readonly IPasswordService _passwordService;
+        private readonly IJwtService _jwtService;
+        private readonly IHashService _hashService;
         private readonly IUserService _userService;
 
-        public AuthService(IPasswordService passwordService, IJwtService jwtProvider, IUserService userService)
+        public AuthService(IHashService hashService, IJwtService jwtService, IUserService userService)
         {
-            _passwordService = passwordService; 
-            _jwtProvider = jwtProvider;
+            _hashService = hashService; 
+            _jwtService = jwtService;
             _userService = userService;
         }
 
@@ -23,12 +23,12 @@ namespace ToDo.WebApi.Application.Services
         {
             var user = _userService.Get(request.Email);
 
-            if (user is null || !_passwordService.VerifyLogin(request, user.Password))
+            if (user is null || !_hashService.VerifyAgainstHashedPassword(request.Password, user.Password))
                 throw new AuthException("Username or password do not match, please try again.", null);
             
             return new()
             {
-                Content = _jwtProvider.GenerateTokenFrom(user!),
+                Content = _jwtService.GenerateTokenFrom(user!),
                 Started = DateTime.UtcNow
             };
         }
@@ -43,7 +43,7 @@ namespace ToDo.WebApi.Application.Services
             User user = new()
             {
                 Email = request.Email, 
-                Password = _passwordService.HashPassword(request.Password)
+                Password = _hashService.HashPassword(request.Password)
             };
 
             _userService.Create(user);

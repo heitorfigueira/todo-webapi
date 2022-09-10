@@ -29,11 +29,14 @@ namespace ToDo.WebApi.Application.Services
                              .Select(prop => 
                                 new Claim(
                                     prop.Name, 
-                                    prop.GetValue(user)!.ToString()!)).ToArray();
+                                    prop.GetValue(user)!.ToString()!))
+                             .ToArray();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
+                // TODO: Issuer = "",
+                // TODO: Audience = "",
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
                                         new SymmetricSecurityKey(key), 

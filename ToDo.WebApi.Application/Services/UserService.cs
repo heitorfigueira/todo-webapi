@@ -32,7 +32,7 @@ namespace ToDo.WebApi.Application.Services
 
         public User? Get(string username)
         {
-            return _userRepository.GetByUsername(username);
+            return _userRepository.GetByEmail(username);
         }
     }
 }

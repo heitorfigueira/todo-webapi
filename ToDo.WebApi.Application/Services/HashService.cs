@@ -24,7 +24,7 @@ namespace ToDo.WebApi.Application.Services
             return Encoding.ASCII.GetString(argonHasher.GetBytes(128));
         }
 
-        public bool VerifyHashedPassword(string hashedPassword, string providedPassword)
+        public bool VerifyAgainstHashedPassword(string hashedPassword, string providedPassword)
         {
             return hashedPassword.Equals(HashPassword(providedPassword));
         }

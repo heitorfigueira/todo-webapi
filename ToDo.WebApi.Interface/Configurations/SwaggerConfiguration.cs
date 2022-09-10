@@ -11,12 +11,16 @@ namespace ToDo.WebApi.Interface.Configurations
 
         public void AddMiddlewareInstaller(WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Production")
+                RunDevelopmentSetup(app);
+            else
+                return;
+        }
 
+        private static void RunDevelopmentSetup(WebApplication app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
     }
 }

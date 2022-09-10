@@ -9,6 +9,6 @@ namespace ToDo.WebApi.Application.Contracts.Services
     public interface IHashService
     {
         string HashPassword(string password);
-        bool VerifyHashedPassword(string hashedPassword, string providedPassword);
+        bool VerifyAgainstHashedPassword(string hashedPassword, string providedPassword);
     }
 }

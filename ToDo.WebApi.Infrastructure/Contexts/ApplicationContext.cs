@@ -25,10 +25,5 @@ namespace ToDo.WebApi.Infrastructure.Contexts
         public DbSet<User> Users { get; set; }
 
         public DbSet<AccountTodoList> AccountTodoList { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_config["ConnectionStrings:DefaultDatabaseConnection"]);
-        }
     } 
 }
