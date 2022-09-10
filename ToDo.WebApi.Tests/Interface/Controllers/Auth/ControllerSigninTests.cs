@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Tests.Setups.Controllers;
+using ToDo.WebApi.Tests.Unit.Setups.Controllers;
 
 namespace ToDo.WebApi.Tests.Unit.Interface.Controllers.Auth
 {

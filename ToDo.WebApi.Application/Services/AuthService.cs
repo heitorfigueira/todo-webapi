@@ -1,4 +1,5 @@
-﻿using ToDo.WebApi.Application.Contracts.Services;
+﻿using Throw;
+using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Application.DTOs.ValueObject;
 using ToDo.WebApi.Domain.Entities;
@@ -12,19 +13,23 @@ namespace ToDo.WebApi.Application.Services
         private readonly IHashService _hashService;
         private readonly IUserService _userService;
 
-        public AuthService(IHashService hashService, IJwtService jwtService, IUserService userService)
+        public AuthService(IJwtService jwtService, IHashService hashService, IUserService userService)
         {
-            _hashService = hashService; 
             _jwtService = jwtService;
+            _hashService = hashService; 
             _userService = userService;
         }
 
         public Session Signin(AuthRequests.Auth request)
         {
             var user = _userService.Get(request.Email);
+            // ****
+            user.ThrowIfNull(paramName =>
+                new AuthException("Email or password do not match, please try again.", null));
 
-            if (user is null || !_hashService.VerifyAgainstHashedPassword(request.Password, user.Password))
-                throw new AuthException("Username or password do not match, please try again.", null);
+            _hashService.VerifyAgainstHashedPassword(request.Password, user.Password)
+                .Throw(paramName =>
+                    new AuthException("Email or password do not match, please try again.", null)).IfNegative();
             
             return new()
             {

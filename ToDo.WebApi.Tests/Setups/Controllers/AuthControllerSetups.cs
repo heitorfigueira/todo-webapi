@@ -1,13 +1,9 @@
-﻿using Bogus;
-using Moq;
-using ToDo.WebApi.Application.Contracts.Services;
-using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Application.Fakers;
+﻿using ToDo.WebApi.Application.Fakers;
 using ToDo.WebApi.Interface.Controllers;
-using ToDo.WebApi.Tests.Setups.Services;
+using ToDo.WebApi.Tests.Unit.Setups.Services;
 using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
-namespace ToDo.WebApi.Tests.Setups.Controllers
+namespace ToDo.WebApi.Tests.Unit.Setups.Controllers
 {
     public static class AuthControllerSetups
     {

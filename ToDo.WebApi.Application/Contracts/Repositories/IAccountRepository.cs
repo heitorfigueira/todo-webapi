@@ -8,8 +8,7 @@ using WebApi.Framework.Data.Repositories;
 
 namespace ToDo.WebApi.Application.Contracts.Repositories
 {
-    public interface IUserRepository : IRepository<User, Guid>
+    public interface IAccountRepository : IRepository<Account, Guid>
     {
-        User? GetByEmail(string email);
     }
 }

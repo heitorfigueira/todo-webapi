@@ -1,17 +1,6 @@
-﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDo.WebApi.Application.Contracts.Services;
-using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Application.Fakers;
-using ToDo.WebApi.Application.Services;
-using ToDo.WebApi.Domain.Entities;
-using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
+﻿using ToDo.WebApi.Application.Contracts.Services;
 
-namespace ToDo.WebApi.Tests.Setups.Services
+namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class HashServiceSetups
     {

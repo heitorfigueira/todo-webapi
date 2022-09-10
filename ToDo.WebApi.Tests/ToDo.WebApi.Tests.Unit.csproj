@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
@@ -25,9 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Integration\Infrastructure\" />
-    <Folder Include="Unit\Application\NewFolder\" />
-    <Folder Include="Unit\Application\Validations\" />
+    <Folder Include="Application\NewFolder\" />
+    <Folder Include="Application\Validations\" />
+    <Folder Include="Mutation\" />
+    <Folder Include="Coverage\" />
   </ItemGroup>
 
   <ItemGroup>

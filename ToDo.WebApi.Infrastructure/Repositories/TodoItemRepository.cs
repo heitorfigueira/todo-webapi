@@ -5,7 +5,7 @@ using WebApi.Framework.Data.Repositories.EntityFramework;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class TodoItemRepository : EntityFrameworkRepositoryBase<TodoItem>, ITodoItemRepository
+    public class TodoItemRepository : EntityFrameworkIdentityRepositoryBase<TodoItem>, ITodoItemRepository
     {
         public TodoItemRepository(ApplicationContext context) : base(context)
         {
