@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
+using WebApi.Framework.Controllers;
 using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
 namespace ToDo.WebApi.Interface.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : ExtendedControllerBase
     {
         private readonly IAuthService _authService;
 
@@ -20,23 +21,24 @@ namespace ToDo.WebApi.Interface.Controllers
         [Route("signin")]
         public IActionResult Signin(Auth request)
         {
-            return Ok(_authService.Signin(request));
+            return _authService.Signin(request)
+                .Match(signin => Ok(signin), Problem);
         }
 
         [HttpPut]
         [Route("signoff")]
         public IActionResult Signoff()
         {
-            _authService.Signoff();
-            return NoContent();
+            return _authService.Signoff()
+                .Match(_ => NoContent(), Problem);
         }
 
         [HttpPost]
         [Route("signup")]
         public IActionResult Signup(Auth request)
         {
-            _authService.Signup(request);
-            return Ok();
+            return _authService.Signup(request)
+                .Match(signup => Ok(signup), Problem);
         }
     }
 }

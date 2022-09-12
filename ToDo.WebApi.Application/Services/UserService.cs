@@ -7,10 +7,11 @@ using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class UserService : IUserService
+    public class UserService : ScopedService, IUserService
     {
         private readonly IUserRepository _userRepository;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,9 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IAccountService
     {
-        Account? Create(Account user);
-        Account? Delete(Guid id);
-        Account? Get(Guid id);
+        ErrorOr<Account?> Create(CreateAccount request);
+        ErrorOr<Account?> Delete(Guid id);
+        ErrorOr<Account?> Get(Guid id);
+        ErrorOr<Account?> Update(UpdateAccount request);
     }
 }

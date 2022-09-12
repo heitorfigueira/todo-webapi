@@ -8,7 +8,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class AuthServiceSetups
     {
-        public static Mock<IAuthService> SigninWithCredentialsReturnsSession(Auth auth)
+        public static Mock<IAuthService> MockSigninWithCredentialsReturnsSession(Auth auth)
         {
             var mock = new Mock<IAuthService>();
             mock.Setup(service =>
@@ -17,21 +17,21 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
             return mock;
         }
+
         public static AuthService SigninWithCredentialsReturnsSessionValidJwt(Auth auth)
         {
             var user = UserFakers.GenerateSingleUser();
 
             string validJwt = "valid jwt";
 
-            var mockUserService = UserServiceSetups.MockGetValidEmailReturnsUser(user);
+            var mockUserService = UserServiceSetups.MockGetValidEmailReturnsUser(auth.Email, user);
 
             var mockHashService = HashServiceSetups.MockVerifyLoginAuthCorrectPasswordReturnsTrue(auth.Password, user.Password);
 
             var mockJwtService = JwtServiceSetups.MockGenerateTokenValidUserReturnsValidJwt(user, validJwt);
 
-            return new AuthService(mockHashService.Object, mockJwtService.Object, mockUserService.Object);
+            return new AuthService(mockJwtService.Object, mockHashService.Object, mockUserService.Object);
         }
-
         public static (AuthService service, Auth auth) SigninValidCredentialsReturnsSessionValidJwt()
         {
             var auth = AuthFakers.GenerateSingleAuth();

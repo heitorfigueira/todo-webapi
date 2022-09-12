@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface ITodoListService
     {
-        TodoList? Create(CreateToDoList request);
-        TodoList? Update(UpdateToDoList request);
-        TodoList? Delete(int id);
-        TodoList? Get(int id);
-        IEnumerable<TodoList> List(ListToDoList request);
+        ErrorOr<TodoList?> Create(CreateToDoList request);
+        ErrorOr<TodoList?> Update(UpdateToDoList request);
+        ErrorOr<TodoList?> Delete(int id);
+        ErrorOr<TodoList?> Get(int id);
+        ErrorOr<IEnumerable<TodoList>> List(ListToDoList request);
     }
 }

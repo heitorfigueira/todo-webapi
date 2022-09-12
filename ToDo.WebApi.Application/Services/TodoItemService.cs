@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ErrorOr;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace ToDo.WebApi.Application.Services
             _todoItemRepository = todoItemRepository;
         }
 
-        public TodoItem Create(CreateToDoItem request)
+        public ErrorOr<TodoItem> Create(CreateToDoItem request)
         {
             TodoItem? item = null;
             var createdListId = 
@@ -37,7 +38,7 @@ namespace ToDo.WebApi.Application.Services
             return item;
         }
 
-        public TodoItem? Delete(int id)
+        public ErrorOr<TodoItem?> Delete(int id)
         {
             var item = _todoItemRepository.Get(id);
 
@@ -46,18 +47,18 @@ namespace ToDo.WebApi.Application.Services
             return item;
         }
 
-        public TodoItem? Get(int id)
+        public ErrorOr<TodoItem?> Get(int id)
         {
             return _todoItemRepository.Get(id);
         }
 
-        public IEnumerable<TodoItem> List(ListToDoItem request)
+        public ErrorOr<IEnumerable<TodoItem>> List(ListToDoItem request)
         {
             //TODO: query through dapper
             throw new NotImplementedException();
         }
 
-        public TodoItem? Update(UpdateToDoItem request)
+        public ErrorOr<TodoItem?> Update(UpdateToDoItem request)
         {
             return _todoItemRepository.Update(request.item) ? request.item : null;
         }

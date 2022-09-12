@@ -1,13 +1,14 @@
-﻿using Throw;
+﻿using ErrorOr;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Application.DTOs.ValueObject;
 using ToDo.WebApi.Domain.Entities;
-using ToDo.WebApi.Domain.Exceptions;
+using ToDo.WebApi.Domain.Errors;
+using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService : ScopedService, IAuthService
     {
         private readonly IJwtService _jwtService;
         private readonly IHashService _hashService;
@@ -20,30 +21,27 @@ namespace ToDo.WebApi.Application.Services
             _userService = userService;
         }
 
-        public Session Signin(AuthRequests.Auth request)
+        public ErrorOr<Session> Signin(AuthRequests.Auth request)
         {
             var user = _userService.Get(request.Email);
             // ****
-            user.ThrowIfNull(paramName =>
-                new AuthException("Email or password do not match, please try again.", null));
+            if (user is null || !_hashService.VerifyAgainstHashedPassword(request.Password, user.Password))
+                return Errors.Authentication.InvalidCredentials;
 
-            _hashService.VerifyAgainstHashedPassword(request.Password, user.Password)
-                .Throw(paramName =>
-                    new AuthException("Email or password do not match, please try again.", null)).IfNegative();
-            
-            return new()
+            return new Session()
             {
                 Content = _jwtService.GenerateTokenFrom(user!),
                 Started = DateTime.UtcNow
             };
         }
 
-        public void Signoff()
+        public ErrorOr<bool> Signoff()
         {
-            //TODO: remove session from header
+
+            return true;
         }
 
-        public void Signup(AuthRequests.Auth request)
+        public ErrorOr<Session> Signup(AuthRequests.Auth request)
         {
             User user = new()
             {
@@ -51,7 +49,14 @@ namespace ToDo.WebApi.Application.Services
                 Password = _hashService.HashPassword(request.Password)
             };
 
-            _userService.Create(user);
+            if (_userService.Create(user) is null)
+                return Errors.Authentication.InvalidCredentials;
+
+            return new Session()
+            {
+                Content = _jwtService.GenerateTokenFrom(user),
+                Started = DateTime.UtcNow
+            };
         }
     }
 }

@@ -4,6 +4,7 @@ namespace ToDo.WebApi.Interface.Configurations
 {
     public class SwaggerConfiguration : IInstaller, IMiddlewareInstaller
     {
+        public int Order = 99;
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerGen();

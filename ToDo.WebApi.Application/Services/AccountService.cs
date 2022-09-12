@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
 using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService : ScopedService, IAccountService
     {
         private readonly IAccountRepository _accountRepository;
 
@@ -19,20 +16,49 @@ namespace ToDo.WebApi.Application.Services
             _accountRepository = accountRepository;
         }
 
-        public Account? Create(Account request)
+        public ErrorOr<Account?> Create(CreateAccount request)
         {
-            var id = _accountRepository.Create(request);
+            Account newAccount = new()
+            {
+                Created = DateTime.Now,
+                CreatedBy = "", // TODO: get from user claims
+                Type = request.Type,
+                Name = request.Name,
+                UserId = request.UserId
+            };
+
+            var id = _accountRepository.Create(newAccount);
             return _accountRepository.Get(id);
         }
 
-        public Account? Delete(Guid id)
+        public ErrorOr<Account?> Delete(Guid id)
         {
             return _accountRepository.Delete(id);
         }
 
-        public Account? Get(Guid id)
+        public ErrorOr<Account?> Get(Guid id)
         {
             return _accountRepository.Get(id);
+        }
+
+        public ErrorOr<Account?> Update(UpdateAccount request)
+        {
+            var account = _accountRepository.Get(request.Id);
+
+            if (account is not null && 
+               (request.Name is not null || request.Type is not null))
+            {
+                account.Updated = DateTime.Now;
+                account.UpdatedByUser = ""; // TODO: pull from httpcontext
+                account.UpdatedByIP = ""; // TODO: pull from httpcontext
+
+                account.Name = request.Name ?? account.Name;
+                account.Type = request.Type ?? account.Type;
+
+                _accountRepository.Update(account);
+            }
+
+            return account;
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
+using WebApi.Framework.Controllers;
 
 namespace ToDo.WebApi.Interface.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class TodoItemController : ControllerBase
+    public class TodoItemController : ExtendedControllerBase
     {
         private readonly ITodoItemService _todoItemService;
 
@@ -18,34 +19,39 @@ namespace ToDo.WebApi.Interface.Controllers
         [HttpGet]
         public IActionResult Create(CreateToDoItem request)
         {
-            return Ok(_todoItemService.Create(request));
+            return _todoItemService.Create(request)
+                .Match(create => Ok(create), Problem);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok(_todoItemService.Delete(id));
+            return _todoItemService.Delete(id)
+                .Match(delete => Ok(delete), Problem);
         }
 
         [HttpPost]
         [Route("query")]
         public IActionResult List(ListToDoItem request)
         {
-            return Ok(_todoItemService.List(request));
+            return _todoItemService.List(request)
+                .Match(list => Ok(list), Problem);
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_todoItemService.Get(id));
+            return _todoItemService.Get(id)
+                .Match(get => Ok(get), Problem);
         }
 
         [HttpPut]
         public IActionResult Update(UpdateToDoItem request)
         {
-            return Ok(_todoItemService.Update(request));
+            return _todoItemService.Update(request)
+                .Match(update => Ok(update), Problem);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Controllers
     {
         public static AuthController SigninWithCredentialsReturnsSession(Auth auth)
         {
-            var mockAuthService = AuthServiceSetups.SigninWithCredentialsReturnsSession(auth);
+            var mockAuthService = AuthServiceSetups.MockSigninWithCredentialsReturnsSession(auth);
 
             return new(mockAuthService.Object);
         }
@@ -18,7 +18,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Controllers
         {
             var validAuth = AuthFakers.GenerateSingleAuth();
 
-            var mockAuthService = AuthServiceSetups.SigninWithCredentialsReturnsSession(validAuth);
+            var mockAuthService = AuthServiceSetups.MockSigninWithCredentialsReturnsSession(validAuth);
 
             return (SigninWithCredentialsReturnsSession(validAuth), validAuth);
         }

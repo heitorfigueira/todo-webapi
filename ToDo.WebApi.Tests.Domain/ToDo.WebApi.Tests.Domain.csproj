@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorOr" Version="1.0.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\webapi-framework\WebApi.Framework.csproj" />
+    <ProjectReference Include="..\ToDo.WebApi.Application\ToDo.WebApi.Application.csproj" />
+    <ProjectReference Include="..\ToDo.WebApi.Interface\ToDo.WebApi.Interface.csproj" />
   </ItemGroup>
 
 </Project>

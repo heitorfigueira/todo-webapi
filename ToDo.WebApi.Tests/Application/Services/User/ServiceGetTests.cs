@@ -1,4 +1,4 @@
-﻿using ToDo.WebApi.Tests.Setups.Services;
+﻿using ToDo.WebApi.Tests.Unit.Setups.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Application.Services.User
 {

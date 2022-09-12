@@ -14,7 +14,11 @@ namespace ToDo.WebApi.Infrastructure.Contexts
     {
         private readonly IConfiguration _config;
 
-        public ApplicationContext(IConfiguration config)
+        public ApplicationContext(IConfiguration config, DbContextOptions<ApplicationContext> options) : base(options)
+        {
+            _config = config;
+        }
+        public ApplicationContext(IConfiguration config, DbContextOptions<DbContext> options) : base(options)
         {
             _config = config;
         }

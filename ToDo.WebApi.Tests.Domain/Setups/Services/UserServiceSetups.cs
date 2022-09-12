@@ -8,11 +8,11 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class UserServiceSetups
     {
-        public static Mock<IUserService> MockGetValidEmailReturnsUser(User user)
+        public static Mock<IUserService> MockGetValidEmailReturnsUser(string Email, User user)
         {
             var mock = new Mock<IUserService>();
             mock.Setup(service =>
-                    service.Get(user.Email))
+                    service.Get(Email))
                     .Returns(user);
 
             return mock;
