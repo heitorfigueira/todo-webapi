@@ -39,7 +39,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<ITodoItemService> SetupCreateReturnsTodoItem(this Mock<ITodoItemService>  mock, TodoItem item)
         {
             mock.Setup(service =>
-                    service.Create(It.IsAny<CreateToDoItem>()))
+                    service.Create(It.IsAny<CreateTodoItem>()))
                     .Returns(item);
 
             return mock;
@@ -47,7 +47,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<ITodoItemService> SetupCreateReturnsCreationFailedError(this Mock<ITodoItemService> mock)
         {
             mock.Setup(service =>
-                    service.Create(It.IsAny<CreateToDoItem>()))
+                    service.Create(It.IsAny<CreateTodoItem>()))
                     .Returns(Errors.Repository.CreationFailed);
 
             return mock;
@@ -85,7 +85,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<ITodoItemService> SetupUpdateReturnsTodoItem(this Mock<ITodoItemService> mock, TodoItem item)
         {
             mock.Setup(service =>
-                    service.Update(It.IsAny<UpdateToDoItem>()))
+                    service.Update(It.IsAny<UpdateTodoItem>()))
                     .Returns(item);
 
             return mock;
@@ -93,7 +93,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<ITodoItemService> SetupUpdateReturnsUpdateFailedError(this Mock<ITodoItemService> mock)
         {
             mock.Setup(service =>
-                    service.Update(It.IsAny<UpdateToDoItem>()))
+                    service.Update(It.IsAny<UpdateTodoItem>()))
                     .Returns(Errors.Repository.CreationFailed);
 
             return mock;

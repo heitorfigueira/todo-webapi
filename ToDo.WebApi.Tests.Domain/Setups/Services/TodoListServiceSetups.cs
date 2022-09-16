@@ -27,7 +27,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
             return new TodoListService(
                 TodoItemServiceMocks.Mock().Object, mockRepository.Object,
                 AccountTodoListRepositoryMocks.Mock().Object, 
-                MapperMocks.Mock().SetupMapBetween<CreateToDoList, TodoList>(list).Object);
+                MapperMocks.Mock().SetupMapBetween<CreateTodoList, TodoList>(list).Object);
         }
         public static TodoListService GetInvalidIdReturnsNull()
         {
@@ -44,7 +44,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         #region Create
         public static TodoListService CreateReturnsTodoList(TodoList list)
         {
-            var mockMapper = MapperMocks.Mock().SetupMapBetween<CreateToDoList, TodoList>(new());
+            var mockMapper = MapperMocks.Mock().SetupMapBetween<CreateTodoList, TodoList>(new());
             var mockTodoListRepository = TodoListRepositoryMocks.Mock()
                                         .SetupCreateReturnsTodoList(list);
 
@@ -66,7 +66,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         }
         public static TodoListService CreateReturnsCreationFailedError()
         {
-            var mockMapper = MapperMocks.Mock().SetupMapBetween<CreateToDoList, TodoList>(new());
+            var mockMapper = MapperMocks.Mock().SetupMapBetween<CreateTodoList, TodoList>(new());
             var mockTodoListRepository = TodoListRepositoryMocks.Mock().SetupCreateReturnsNull();
 
 

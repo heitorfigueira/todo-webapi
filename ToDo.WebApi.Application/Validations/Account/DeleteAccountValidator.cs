@@ -7,6 +7,7 @@ namespace ToDo.WebApi.Application.Validations.Account
     {
         public DeleteAccountValidator()
         {
+            RuleFor(delete => delete.Id).NotEmpty().NotNull();
         }
     }
 }

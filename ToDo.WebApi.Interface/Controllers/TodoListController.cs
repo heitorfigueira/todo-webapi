@@ -18,7 +18,7 @@ namespace ToDo.WebApi.Interface.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateToDoList request)
+        public IActionResult Create(CreateTodoList request)
         {
             return OkOrProblem(_todoListService.Create(request));
         }
@@ -32,7 +32,7 @@ namespace ToDo.WebApi.Interface.Controllers
 
         [HttpPost]
         [Route("query")]
-        public IActionResult List(ListToDoList request)
+        public IActionResult List(ListTodoList request)
         {
             return OkOrProblem(_todoListService.List(request));
         }
@@ -45,7 +45,7 @@ namespace ToDo.WebApi.Interface.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(UpdateToDoList request)
+        public IActionResult Update(UpdateTodoList request)
         {
             return OkOrProblem(_todoListService.Update(request));
         }

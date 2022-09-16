@@ -17,7 +17,7 @@ namespace ToDo.WebApi.Interface.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateToDoItem request)
+        public IActionResult Create(CreateTodoItem request)
         {
             return OkOrProblem(_todoItemService.Create(request));
         }
@@ -31,7 +31,7 @@ namespace ToDo.WebApi.Interface.Controllers
 
         [HttpPost]
         [Route("query")]
-        public IActionResult List(ListToDoItem request)
+        public IActionResult List(ListTodoItem request)
         {
             return OkOrProblem(_todoItemService.List(request));
         }
@@ -44,7 +44,7 @@ namespace ToDo.WebApi.Interface.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(UpdateToDoItem request)
+        public IActionResult Update(UpdateTodoItem request)
         {
             return OkOrProblem(_todoItemService.Update(request));
         }

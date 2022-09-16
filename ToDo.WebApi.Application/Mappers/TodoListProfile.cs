@@ -8,7 +8,7 @@ namespace ToDo.WebApi.Application.Mappers
     {
         public TodoListProfile()
         {
-            CreateMap<CreateToDoList, TodoList>();
+            CreateMap<CreateTodoList, TodoList>();
         }
     }
 }

@@ -3,15 +3,18 @@ using ToDo.WebApi.Application.DTOs.Requests;
 
 namespace ToDo.WebApi.Application.Validations.TodoItem
 {
-    public class ListTodoItemValidator : AbstractValidator<ListToDoList>
+    public class ListTodoItemValidator : AbstractValidator<ListTodoItem>
     {
         public ListTodoItemValidator()
         {
-            RuleFor(r => r.Description)
-                .NotEmpty()
-                .Unless(r => r.Description is null);
 
-            RuleFor(r => r.Name).NotEmpty();
+            RuleFor(update => update.Description)
+                .NotEmpty().Unless(list => list.Description is null)
+                .NotNull().Unless(list => list.ItemListId is not null);
+
+            RuleFor(update => update.ItemListId)
+                .NotEmpty().Unless(list => list.ItemListId is null)
+                .NotNull().Unless(list => list.Description is not null);
         }
     }
 }

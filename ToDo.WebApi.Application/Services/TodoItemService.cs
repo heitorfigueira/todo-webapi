@@ -21,7 +21,7 @@ namespace ToDo.WebApi.Application.Services
             _todoItemRepository = todoItemRepository;
         }
 
-        public ErrorOr<TodoItem> Create(CreateToDoItem request)
+        public ErrorOr<TodoItem> Create(CreateTodoItem request)
         {
             var createdItem = 
                 _todoItemRepository.Create(
@@ -51,13 +51,13 @@ namespace ToDo.WebApi.Application.Services
             return _todoItemRepository.Get(id);
         }
 
-        public ErrorOr<IEnumerable<TodoItem>> List(ListToDoItem request)
+        public ErrorOr<IEnumerable<TodoItem>> List(ListTodoItem request)
         {
             //TODO: query through dapper
             throw new NotImplementedException();
         }
 
-        public ErrorOr<TodoItem> Update(UpdateToDoItem request)
+        public ErrorOr<TodoItem> Update(UpdateTodoItem request)
         {
             var item = _todoItemRepository.Get(request.Id);
 

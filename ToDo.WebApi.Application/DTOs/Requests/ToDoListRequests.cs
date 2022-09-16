@@ -2,7 +2,7 @@
 
 namespace ToDo.WebApi.Application.DTOs.Requests
 {
-    public record CreateToDoList(string Name, Guid accountId, string? Description, IEnumerable<CreateToDoItem>? Items);
-    public record ListToDoList(string? Name, Guid? accountId, string? Description, string? Id, IEnumerable<TodoItem>? Items);
-    public record UpdateToDoList(int Id, string? Name, string? Description);
+    public record CreateTodoList(string Name, Guid AccountId, string? Description, IEnumerable<CreateTodoItem>? Items);
+    public record ListTodoList(string? Name, Guid? AccountId, string? Description, int Id, IEnumerable<TodoItem>? Items);
+    public record UpdateTodoList(int Id, string? Name, string? Description);
 }

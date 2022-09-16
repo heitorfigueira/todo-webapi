@@ -34,7 +34,7 @@ namespace ToDo.WebApi.Application.Services
             _todoListRepository = todoListRepository;
             _accountTodoListRepository = accountTodoListRepository;
         }
-        public ErrorOr<TodoList> Create(CreateToDoList request)
+        public ErrorOr<TodoList> Create(CreateTodoList request)
         {
             var createdList = _todoListRepository
                 .Create(_mapper.Map<TodoList>(request));
@@ -58,7 +58,7 @@ namespace ToDo.WebApi.Application.Services
 
             var accountTodo = _accountTodoListRepository.Create(new()
             {
-                AccountId = request.accountId,
+                AccountId = request.AccountId,
                 TodoListId = createdList.Id
             });
 
@@ -88,13 +88,13 @@ namespace ToDo.WebApi.Application.Services
             return _todoListRepository.Get(id);
         }
 
-        public ErrorOr<IEnumerable<TodoList>> List(ListToDoList request)
+        public ErrorOr<IEnumerable<TodoList>> List(ListTodoList request)
         {
             //TODO: query through dapper
             throw new NotImplementedException();
         }
 
-        public ErrorOr<TodoList> Update(UpdateToDoList request)
+        public ErrorOr<TodoList> Update(UpdateTodoList request)
         {
             var list = _todoListRepository.Get(request.Id);
 

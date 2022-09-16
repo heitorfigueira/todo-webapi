@@ -3,15 +3,23 @@ using ToDo.WebApi.Application.DTOs.Requests;
 
 namespace ToDo.WebApi.Application.Validations.TodoList
 {
-    public class CreateTodoListValidator : AbstractValidator<CreateToDoList>
+    public class CreateTodoListValidator : AbstractValidator<CreateTodoList>
     {
         public CreateTodoListValidator()
         {
-            RuleFor(r => r.Description)
+            RuleFor(list => list.Name)
                 .NotEmpty()
-                .Unless(r => r.Description is null);
+                .NotNull();
 
-            RuleFor(r => r.Name).NotEmpty();
+            RuleFor(update => update.Description)
+                .NotEmpty().Unless(list => list.Description is null);
+
+            RuleFor(list => list.AccountId)
+                .NotEmpty()
+                .NotNull();
+
+            RuleFor(list => list.Items)
+                .NotEmpty().Unless(list => list.Items is null);
         }
     }
 }

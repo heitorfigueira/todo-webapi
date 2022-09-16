@@ -11,10 +11,10 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface ITodoItemService
     {
-        ErrorOr<TodoItem> Create(CreateToDoItem request);
-        ErrorOr<TodoItem> Update(UpdateToDoItem request);
+        ErrorOr<TodoItem> Create(CreateTodoItem request);
+        ErrorOr<TodoItem> Update(UpdateTodoItem request);
         ErrorOr<TodoItem> Delete(int id);
         ErrorOr<TodoItem?> Get(int id);
-        ErrorOr<IEnumerable<TodoItem>> List(ListToDoItem request);
+        ErrorOr<IEnumerable<TodoItem>> List(ListTodoItem request);
     }
 }
