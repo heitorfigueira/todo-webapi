@@ -8,13 +8,26 @@ namespace ToDo.WebApi.Tests.Unit.Application.Services.User
         public void Get_WithValidEmail_ReturnsUser()
         {
             // Arrange
-            var (_sut, user) = UserServiceSetups.GetValidEmailReturnsUser();
+            var (sut, user) = UserServiceSetups.GetValidEmailReturnsUser();
 
             // Act
-            var result = _sut.Get(user.Email);
+            var result = sut.Get(user.Email);
 
             // Assert
             result.Should().BeOfType<Domain.Entities.User>();
+        }
+
+        [Fact]
+        public void Get_WithInvalidEmail_ReturnsNull()
+        {
+            // Arrange
+            var sut = UserServiceSetups.GetInvalidEmailReturnsNull();
+
+            // Act
+            var result = sut.Get(It.IsAny<string>());
+
+            // Assert
+            result.Should().BeNull();
         }
     }
 }

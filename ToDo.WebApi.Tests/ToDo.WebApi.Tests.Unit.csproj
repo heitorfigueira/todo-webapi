@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\NewFolder\**" />
+    <EmbeddedResource Remove="Application\NewFolder\**" />
+    <None Remove="Application\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="Bogus" Version="34.0.2" />
@@ -27,16 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\NewFolder\" />
-    <Folder Include="Application\Validations\" />
-    <Folder Include="Mutation\" />
-    <Folder Include="Coverage\" />
+    <ProjectReference Include="..\ToDo.WebApi.Tests.Domain\ToDo.WebApi.Tests.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ToDo.WebApi.Application\ToDo.WebApi.Application.csproj" />
-    <ProjectReference Include="..\ToDo.WebApi.Infrastructure\ToDo.WebApi.Infrastructure.csproj" />
-    <ProjectReference Include="..\ToDo.WebApi.Interface\ToDo.WebApi.Interface.csproj" />
+    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
 
 </Project>

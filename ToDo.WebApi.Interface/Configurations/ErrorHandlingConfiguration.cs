@@ -8,7 +8,8 @@ namespace ToDo.WebApi.Interface.Configurations
 {
     public class ErrorHandlingConfiguration : IInstaller, IMiddlewareInstaller
     {
-        public int Order = 3;
+        public int InstallerOrder = 5;
+        public int MiddlewareOrder = 5;
         public void AddMiddlewareInstaller(WebApplication app)
         {
             app.UseExceptionHandler("/error");

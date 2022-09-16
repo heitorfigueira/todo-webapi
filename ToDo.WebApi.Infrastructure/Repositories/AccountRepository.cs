@@ -13,5 +13,10 @@ namespace ToDo.WebApi.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public IEnumerable<Account> ListAll()
+        {
+            return _context.Accounts.ToList();
+        }
     }
 }

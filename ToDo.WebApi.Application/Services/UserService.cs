@@ -23,6 +23,7 @@ namespace ToDo.WebApi.Application.Services
         public User? Create(User request)
         {
             var id = _userRepository.Create(request);
+
             return _userRepository.Get(id);
         }
 

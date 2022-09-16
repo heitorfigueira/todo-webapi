@@ -24,13 +24,13 @@ namespace ToDo.WebApi.Application.Services
         public ErrorOr<Session> Signin(AuthRequests.Auth request)
         {
             var user = _userService.Get(request.Email);
-            // ****
+
             if (user is null || !_hashService.VerifyAgainstHashedPassword(request.Password, user.Password))
                 return Errors.Authentication.InvalidCredentials;
 
             return new Session()
             {
-                Content = _jwtService.GenerateTokenFrom(user!),
+                Content = _jwtService.GenerateTokenFrom(user),
                 Started = DateTime.UtcNow
             };
         }
@@ -43,14 +43,19 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<Session> Signup(AuthRequests.Auth request)
         {
+            if (_userService.Get(request.Email) is not null)
+                return Errors.Authentication.DuplicateEmail;
+
             User user = new()
             {
                 Email = request.Email, 
                 Password = _hashService.HashPassword(request.Password)
             };
 
-            if (_userService.Create(user) is null)
-                return Errors.Authentication.InvalidCredentials;
+            var a = _userService.Create(user);
+
+            if (a is null)
+                return Errors.Authentication.CreationFailed;
 
             return new Session()
             {

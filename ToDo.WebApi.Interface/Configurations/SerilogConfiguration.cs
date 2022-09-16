@@ -7,7 +7,7 @@ namespace ToDo.WebApi.Interface.Configurations
 {
     public class SerilogConfiguration : IMiddlewareInstaller
     {
-        public int Order = 1;
+        public int MiddlewareOrder = 1;
 
         public void AddMiddlewareInstaller(WebApplication app)
         {

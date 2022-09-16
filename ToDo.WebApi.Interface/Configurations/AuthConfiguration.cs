@@ -10,7 +10,9 @@ namespace ToDo.WebApi.Interface.Configurations
 {
     public class AuthConfiguration : IInstaller, IMiddlewareInstaller
     {
-        public int Order = 2;
+        public int InstallerOrder = 4;
+        public int MiddlewareOrder = 4;
+
         public void AddMiddlewareInstaller(WebApplication app)
         {
             app.UseAuthorization();

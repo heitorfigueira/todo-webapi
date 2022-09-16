@@ -2,7 +2,7 @@
 
 namespace ToDo.WebApi.Interface.Configurations
 {
-    public class CachingConfiguration : IInstaller
+    public class CachingConfiguration //: IInstaller
     {
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {

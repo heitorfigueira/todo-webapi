@@ -16,5 +16,6 @@ namespace ToDo.WebApi.Application.Contracts.Services
         ErrorOr<Account?> Delete(Guid id);
         ErrorOr<Account?> Get(Guid id);
         ErrorOr<Account?> Update(UpdateAccount request);
+        ErrorOr<IEnumerable<Account>> List(Account? request);
     }
 }

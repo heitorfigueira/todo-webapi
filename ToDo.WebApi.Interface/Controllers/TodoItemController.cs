@@ -16,42 +16,37 @@ namespace ToDo.WebApi.Interface.Controllers
             _todoItemService = todoItemService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Create(CreateToDoItem request)
         {
-            return _todoItemService.Create(request)
-                .Match(create => Ok(create), Problem);
+            return OkOrProblem(_todoItemService.Create(request));
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            return _todoItemService.Delete(id)
-                .Match(delete => Ok(delete), Problem);
+            return OkOrProblem(_todoItemService.Delete(id));
         }
 
         [HttpPost]
         [Route("query")]
         public IActionResult List(ListToDoItem request)
         {
-            return _todoItemService.List(request)
-                .Match(list => Ok(list), Problem);
+            return OkOrProblem(_todoItemService.List(request));
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
         {
-            return _todoItemService.Get(id)
-                .Match(get => Ok(get), Problem);
+            return OkOrProblem(_todoItemService.Get(id));
         }
 
         [HttpPut]
         public IActionResult Update(UpdateToDoItem request)
         {
-            return _todoItemService.Update(request)
-                .Match(update => Ok(update), Problem);
+            return OkOrProblem(_todoItemService.Update(request));
         }
     }
 }

@@ -1,17 +1,43 @@
-﻿using ToDo.WebApi.Application.Contracts.Services;
+﻿using AutoFixture;
+using ToDo.WebApi.Application.Contracts.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class HashServiceSetups
     {
-        public static Mock<IHashService> MockVerifyLoginAuthCorrectPasswordReturnsTrue(string authPassword, string userPassword)
+        public static Mock<IHashService> Mock()
         {
-            var mock = new Mock<IHashService>();
+            return new Mock<IHashService>();
+        }
+
+        #region Verify
+        public static Mock<IHashService> SetupVerifyLoginAuthCorrectPasswordReturnsTrue(this Mock<IHashService> mock, string authPassword, string userPassword)
+        {
             mock.Setup(service =>
                     service.VerifyAgainstHashedPassword(authPassword, userPassword))
                     .Returns(true);
 
             return mock;
         }
+        public static Mock<IHashService> SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(this Mock<IHashService> mock, string authPassword, string userPassword)
+        {
+            mock.Setup(service =>
+                    service.VerifyAgainstHashedPassword(authPassword, userPassword))
+                    .Returns(false);
+
+            return mock;
+        }
+        #endregion
+
+        #region Hash Password
+        public static Mock<IHashService> SetupHashPasswordReturnsHashedPassword(this Mock<IHashService> mock, string authPassword, string hashedPassword)
+        {
+            mock.Setup(service =>
+                    service.HashPassword(authPassword))
+                    .Returns(hashedPassword);
+
+            return mock;
+        }
+        #endregion
     }
 }

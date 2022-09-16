@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
+using ToDo.WebApi.Domain.Entities;
 using WebApi.Framework.Controllers;
 
 namespace ToDo.WebApi.Interface.Controllers
@@ -17,34 +19,36 @@ namespace ToDo.WebApi.Interface.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Create(CreateAccount request)
         {
-            return _accountService.Create(request)
-                        .Match(create => Ok(create), Problem);
+            return OkOrProblem(_accountService.Create(request));
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(Guid id)
         {
-            return _accountService.Delete(id)
-                        .Match(delete => Ok(delete), Problem);
+            return OkOrProblem(_accountService.Delete(id));
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(Guid id)
         {
-            return _accountService.Get(id)
-                        .Match(get => Ok(get), Problem);
+            return OkOrProblem(_accountService.Get(id));
+        }
+        [HttpPost]
+        [Route("list")]
+        public IActionResult List()
+        {
+            return OkOrProblem(_accountService.List(null));
         }
 
         [HttpPut]
         public IActionResult Update(UpdateAccount request)
         {
-            return _accountService.Update(request)
-                        .Match(update => Ok(update), Problem);
+            return OkOrProblem(_accountService.Update(request));
         }
     }
 }

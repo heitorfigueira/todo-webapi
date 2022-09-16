@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using Microsoft.AspNetCore.Http;
 using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
@@ -40,6 +41,13 @@ namespace ToDo.WebApi.Application.Services
         {
             return _accountRepository.Get(id);
         }
+
+        public ErrorOr<IEnumerable<Account>> List(Account? request)
+        {
+            var list = _accountRepository.ListAll().ToList();
+            return list;
+        }
+
 
         public ErrorOr<Account?> Update(UpdateAccount request)
         {

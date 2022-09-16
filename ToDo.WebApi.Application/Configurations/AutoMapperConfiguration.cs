@@ -12,6 +12,8 @@ namespace ToDo.WebApi.Application.Configurations
 {
     public class AutoMapperConfiguration : IInstaller
     {
+        public int InstallerOrder = 99;
+
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

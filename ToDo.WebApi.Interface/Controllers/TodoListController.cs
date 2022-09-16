@@ -20,39 +20,34 @@ namespace ToDo.WebApi.Interface.Controllers
         [HttpPost]
         public IActionResult Create(CreateToDoList request)
         {
-            return _todoListService.Create(request)
-                       .Match(create => Ok(create), Problem);
+            return OkOrProblem(_todoListService.Create(request));
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            return _todoListService.Delete(id)
-                .Match(delete => Ok(delete), Problem);
+            return OkOrProblem(_todoListService.Delete(id));
         }
 
         [HttpPost]
         [Route("query")]
         public IActionResult List(ListToDoList request)
         {
-            return _todoListService.List(request)
-                .Match(list => Ok(list), Problem);
+            return OkOrProblem(_todoListService.List(request));
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
         {
-            return _todoListService.Get(id)
-                .Match(get => Ok(get), Problem);
+            return OkOrProblem(_todoListService.Get(id));
         }
 
         [HttpPut]
         public IActionResult Update(UpdateToDoList request)
         {
-            return _todoListService.Update(request)
-                .Match(update => Ok(update), Problem);
+            return OkOrProblem(_todoListService.Update(request));
         }
     }
 }

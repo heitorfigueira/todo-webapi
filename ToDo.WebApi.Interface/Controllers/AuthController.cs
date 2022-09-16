@@ -21,24 +21,21 @@ namespace ToDo.WebApi.Interface.Controllers
         [Route("signin")]
         public IActionResult Signin(Auth request)
         {
-            return _authService.Signin(request)
-                .Match(signin => Ok(signin), Problem);
+            return OkOrProblem(_authService.Signin(request));
         }
 
         [HttpPut]
         [Route("signoff")]
         public IActionResult Signoff()
         {
-            return _authService.Signoff()
-                .Match(_ => NoContent(), Problem);
+            return NoContentOrProblem(_authService.Signoff());
         }
 
         [HttpPost]
         [Route("signup")]
         public IActionResult Signup(Auth request)
         {
-            return _authService.Signup(request)
-                .Match(signup => Ok(signup), Problem);
+            return OkOrProblem(_authService.Signup(request));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ToDo.WebApi.Application.Configurations
 {
     public class ValidationConfiguration : IInstaller
     {
+        public int InstallerOrder = 99;
+
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services

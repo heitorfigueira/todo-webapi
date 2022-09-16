@@ -10,5 +10,6 @@ namespace ToDo.WebApi.Application.Contracts.Repositories
 {
     public interface IAccountRepository : IRepository<Account, Guid>
     {
+        public IEnumerable<Account> ListAll();
     }
 }

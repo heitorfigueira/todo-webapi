@@ -14,10 +14,14 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
             return mock;
         }
+        public static Mock<IUserRepository> MockGetInvalidEmailReturnsNull()
+        {
+            var mock = new Mock<IUserRepository>();
+            mock.Setup(service =>
+                    service.GetByEmail(It.IsAny<string>()))
+                    .Returns<User>(null);
 
-        //public static UserRepository GetValidEmailReturnsUser()
-        //{
-
-        //}
+            return mock;
+        }
     }
 }
