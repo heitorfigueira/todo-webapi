@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ToDo.WebApi.Application.Settings;
-using WebApi.Framework.Extensions;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Interface.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class AuthConfiguration : IInstaller, IMiddlewareInstaller
     {

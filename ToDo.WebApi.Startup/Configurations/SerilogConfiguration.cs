@@ -3,7 +3,7 @@ using Serilog.Filters;
 using Serilog;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Interface.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class SerilogConfiguration : IMiddlewareInstaller
     {

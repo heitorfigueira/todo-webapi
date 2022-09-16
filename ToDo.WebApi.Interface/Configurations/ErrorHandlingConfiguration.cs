@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WebApi.Framework.ErrorHandling;
-using WebApi.Framework.Extensions;
 using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Interface.Configurations

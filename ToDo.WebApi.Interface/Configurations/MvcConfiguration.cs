@@ -1,4 +1,7 @@
-﻿using WebApi.Framework.Installers;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Interface.Configurations
 {
