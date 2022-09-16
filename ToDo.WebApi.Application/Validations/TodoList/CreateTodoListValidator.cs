@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using ToDo.WebApi.Application.DTOs.Requests;
 
-namespace ToDo.WebApi.Application.Validations
+namespace ToDo.WebApi.Application.Validations.TodoList
 {
-    public class ListTodoItemValidator : AbstractValidator<ListToDoList>
+    public class CreateTodoListValidator : AbstractValidator<CreateToDoList>
     {
-        public ListTodoItemValidator()
+        public CreateTodoListValidator()
         {
             RuleFor(r => r.Description)
                 .NotEmpty()
