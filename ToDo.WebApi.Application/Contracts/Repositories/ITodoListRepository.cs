@@ -7,7 +7,7 @@ using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
 using WebApi.Framework.Data.Repositories;
 
-namespace ToDo.WebApi.Application.Contracts.Services
+namespace ToDo.WebApi.Application.Contracts.Repositories
 {
     public interface ITodoListRepository : IRepositoryIdentity<TodoList>
     {

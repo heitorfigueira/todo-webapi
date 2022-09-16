@@ -3,7 +3,7 @@ using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Application.DTOs.ValueObject;
 using ToDo.WebApi.Domain.Entities;
-using ToDo.WebApi.Domain.Errors;
+using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
@@ -25,12 +25,18 @@ namespace ToDo.WebApi.Application.Services
         {
             var user = _userService.Get(request.Email);
 
-            if (user is null || !_hashService.VerifyAgainstHashedPassword(request.Password, user.Password))
-                return Errors.Authentication.InvalidCredentials;
+            if (user.IsError || user.Value is null || 
+                !_hashService.VerifyAgainstHashedPassword(request.Password, user.Value.Password))
+                return Errors.Authentication.InvalidCredentials; //TODO: transform into list of errors, maybe git has the way to do it
+
+            var hashedPassword = _jwtService.GenerateTokenFrom(user.Value!);
+
+            if (hashedPassword.IsError)
+                return hashedPassword.Errors;
 
             return new Session()
             {
-                Content = _jwtService.GenerateTokenFrom(user),
+                Content = hashedPassword.Value,
                 Started = DateTime.UtcNow
             };
         }
@@ -43,23 +49,32 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<Session> Signup(AuthRequests.Auth request)
         {
-            if (_userService.Get(request.Email) is not null)
+            var user = _userService.Get(request.Email);
+
+            if (user.IsError)
+                return user.Errors;
+            else if (user.Value is not null)
                 return Errors.Authentication.DuplicateEmail;
 
-            User user = new()
+            User newUser = new()
             {
                 Email = request.Email, 
                 Password = _hashService.HashPassword(request.Password)
             };
 
-            var a = _userService.Create(user);
+            var createdUser = _userService.Create(newUser);
 
-            if (a is null)
-                return Errors.Authentication.CreationFailed;
+            if (createdUser.IsError)
+                return createdUser.Errors;
+
+            var content = _jwtService.GenerateTokenFrom(createdUser.Value);
+
+            if (content.IsError)
+                return content.Errors;
 
             return new Session()
             {
-                Content = _jwtService.GenerateTokenFrom(user),
+                Content = content.Value,
                 Started = DateTime.UtcNow
             };
         }

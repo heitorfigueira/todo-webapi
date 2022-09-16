@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,8 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IUserService
     {
-        User? Create(User user);
-        User? Delete(Guid id);
-        User? Get(string username);
+        ErrorOr<User> Create(User user);
+        ErrorOr<User> Delete(Guid id);
+        ErrorOr<User?> Get(string email);
     }
 }

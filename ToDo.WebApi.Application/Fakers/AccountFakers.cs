@@ -30,6 +30,8 @@ namespace ToDo.WebApi.Application.Fakers
                                 UserId = userId,
                                 Name = fake.Person.FullName,
                                 Type = type,
+                                Created = DateTime.Now,
+                                CreatedBy = "Account Faker"
                             });
         }
     }

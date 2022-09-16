@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using ErrorOr;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDo.WebApi.Application.Contracts.Services;
+using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
@@ -27,24 +23,27 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<TodoItem> Create(CreateToDoItem request)
         {
-            TodoItem? item = null;
-            var createdListId = 
+            var createdItem = 
                 _todoItemRepository.Create(
                     _mapper.Map<TodoItem>(request));
 
-            if (createdListId > 0)
-                item = _todoItemRepository.Get(createdListId);
+            if (createdItem is null)
+                return Errors.Repository.CreationFailed;
 
-            return item;
+            return createdItem;
         }
 
-        public ErrorOr<TodoItem?> Delete(int id)
+        public ErrorOr<TodoItem> Delete(int id)
         {
-            var item = _todoItemRepository.Get(id);
+            if (_todoItemRepository.Get(id) is null)
+                return Errors.Repository.NotFound;
 
-            _todoItemRepository.Delete(id);
+            var deleted = _todoItemRepository.Delete(id);
 
-            return item;
+            if (deleted is null)
+                return Errors.Repository.DeletionFailed;
+
+            return deleted;
         }
 
         public ErrorOr<TodoItem?> Get(int id)
@@ -58,9 +57,23 @@ namespace ToDo.WebApi.Application.Services
             throw new NotImplementedException();
         }
 
-        public ErrorOr<TodoItem?> Update(UpdateToDoItem request)
+        public ErrorOr<TodoItem> Update(UpdateToDoItem request)
         {
-            return _todoItemRepository.Update(request.item) ? request.item : null;
+            var item = _todoItemRepository.Get(request.Id);
+
+            if (item is null)
+                return Errors.Repository.NotFound;
+
+            item.TodoListId = request.ItemListId ?? item.TodoListId;
+            item.Description = request.Description ?? item.Description;
+            item.Done = request.Done ?? item.Done;
+
+            var update = _todoItemRepository.Update(item);
+
+            if (!update)
+                return Errors.Repository.UpdateFailed;
+
+            return item;
         }
     }
 }

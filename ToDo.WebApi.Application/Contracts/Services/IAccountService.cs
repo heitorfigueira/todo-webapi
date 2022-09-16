@@ -12,10 +12,9 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IAccountService
     {
-        ErrorOr<Account?> Create(CreateAccount request);
-        ErrorOr<Account?> Delete(Guid id);
+        ErrorOr<Account> Create(CreateAccount request);
+        ErrorOr<Account> Delete(Guid id);
         ErrorOr<Account?> Get(Guid id);
-        ErrorOr<Account?> Update(UpdateAccount request);
-        ErrorOr<IEnumerable<Account>> List(Account? request);
+        ErrorOr<Account> Update(UpdateAccount request);
     }
 }

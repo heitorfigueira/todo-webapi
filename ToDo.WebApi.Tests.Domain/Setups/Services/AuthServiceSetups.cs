@@ -4,68 +4,45 @@ using ToDo.WebApi.Application.DTOs.ValueObject;
 using ToDo.WebApi.Application.Fakers;
 using ToDo.WebApi.Application.Services;
 using ToDo.WebApi.Domain.Entities;
-using ToDo.WebApi.Domain.Errors;
+using ToDo.WebApi.Domain;
 using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
 namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class AuthServiceSetups
     {
-        public static Mock<IAuthService> Mock()
-        {
-            return new Mock<IAuthService>();
-        }
-
         #region Signin
-        public static Mock<IAuthService> SetupSigninWithValidCredentialsReturnsSession(this Mock<IAuthService> mock, Auth auth)
-        {
-            mock.Setup(service =>
-                    service.Signin(auth))
-                    .Returns(new Session());
-
-            return mock;
-        }
-
-        public static Mock<IAuthService> SetupSigninWithInvalidCredentialsReturnsError(this Mock<IAuthService> mock, Auth auth)
-        {
-            mock.Setup(service =>
-                    service.Signin(auth))
-                    .Returns(Errors.Authentication.InvalidCredentials);
-
-            return mock;
-        }
-
         public static AuthService SigninWithValidCredentialsReturnsSession(Auth auth)
         {
             var user = UserFakers.GenerateSingleUser();
 
             string validJwt = "valid jwt";
 
-            var mockUserService = UserServiceSetups.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
+            var mockUserService = UserServiceMocks.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
 
-            var mockHashService = HashServiceSetups.Mock().SetupVerifyLoginAuthCorrectPasswordReturnsTrue(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthCorrectPasswordReturnsTrue(auth.Password, user.Password);
 
-            var mockJwtService = JwtServiceSetups.MockGenerateTokenValidUserReturnsJwt(user, validJwt);
+            var mockJwtService = JwtServiceMocks.Mock().SetupGenerateTokenValidUserReturnsJwt(user, validJwt);
 
             return new AuthService(mockJwtService.Object, mockHashService.Object, mockUserService.Object);
         }
 
         public static AuthService SigninWithInvalidEmailReturnsInvalidCredentialsError(Auth auth)
         {
-            var mockUserService = UserServiceSetups.Mock().SetupGetInvalidEmailReturnsNull(auth.Email);
+            var mockUserService = UserServiceMocks.Mock().SetupGetInvalidEmailReturnsNull(auth.Email);
 
-            return new AuthService(JwtServiceSetups.Mock().Object, HashServiceSetups.Mock().Object, mockUserService.Object);
+            return new AuthService(JwtServiceMocks.Mock().Object, HashServiceMocks.Mock().Object, mockUserService.Object);
         }
 
         public static AuthService SigninWithIncorrectPasswordReturnsInvalidCredentialsError(Auth auth)
         {
             var user = UserFakers.GenerateSingleUser();
 
-            var mockUserService = UserServiceSetups.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
+            var mockUserService = UserServiceMocks.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
 
-            var mockHashService = HashServiceSetups.Mock().SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(auth.Password, user.Password);
 
-            return new AuthService(JwtServiceSetups.Mock().Object, mockHashService.Object, mockUserService.Object);
+            return new AuthService(JwtServiceMocks.Mock().Object, mockHashService.Object, mockUserService.Object);
         }
 
         public static (AuthService service, Auth auth) SigninValidCredentialsReturnsSession()
@@ -89,16 +66,6 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         #endregion
 
         #region Signup
-        public static Mock<IAuthService> MockSignupWithValidCredentialsReturnsSession(Auth auth)
-        {
-            var mock = new Mock<IAuthService>();
-            mock.Setup(service =>
-                    service.Signup(auth))
-                    .Returns(new Session());
-
-            return mock;
-        }
-
         public static AuthService SignupValidCredentialsReturnsSession(Auth auth)
         {
             var user = UserFakers.GenerateSingleUser();
@@ -106,13 +73,13 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
             string validJwt = "valid jwt";
 
-            var mockUserService = UserServiceSetups.Mock()
-                .SetupCreateReturnsUser(user)
-                .SetupGetInvalidEmailReturnsNull(auth.Email);
+            var mockUserService = UserServiceMocks.Mock()
+                .SetupGetInvalidEmailReturnsNull(auth.Email)
+                .SetupCreateReturnsUser(user);
 
-            var mockHashService = HashServiceSetups.Mock().SetupHashPasswordReturnsHashedPassword(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupHashPasswordReturnsHashedPassword(auth.Password, user.Password);
 
-            var mockJwtService = JwtServiceSetups.MockGenerateTokenValidUserReturnsJwt(user, validJwt);
+            var mockJwtService = JwtServiceMocks.Mock().SetupGenerateTokenValidUserReturnsJwt(user, validJwt);
 
             return new AuthService(mockJwtService.Object, mockHashService.Object, mockUserService.Object);
         }
@@ -121,25 +88,43 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         {
             var user = UserFakers.GenerateSingleUser();
 
-            var mockUserService = 
-                UserServiceSetups.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
+            var mockUserService =
+                UserServiceMocks.Mock().SetupGetValidEmailReturnsUser(auth.Email, user);
 
-            return new AuthService(JwtServiceSetups.Mock().Object, HashServiceSetups.Mock().Object, mockUserService.Object);
+            return new AuthService(JwtServiceMocks.Mock().Object, HashServiceMocks.Mock().Object, mockUserService.Object);
         }
 
-        public static AuthService SignupOnCreationFailureReturnsCreationFailureError(Auth auth)
+        public static AuthService SignupOnUserCreationFailureReturnsCreationFailedError(Auth auth)
         {
             var user = UserFakers.GenerateSingleUser();
 
-            var mockUserService = 
-                UserServiceSetups.Mock()
+            var mockUserService =
+                UserServiceMocks.Mock()
                     .SetupGetInvalidEmailReturnsNull(auth.Email)
-                    .SetupCreateReturnsNull(user);
+                    .SetupCreateReturnsCreationFailedError();
 
-            var mockHashService = HashServiceSetups.Mock().SetupHashPasswordReturnsHashedPassword(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupHashPasswordReturnsHashedPassword(auth.Password, user.Password);
 
             return new AuthService(
-                JwtServiceSetups.Mock().Object,
+                JwtServiceMocks.Mock().Object,
+                mockHashService.Object,
+                mockUserService.Object);
+        }
+        public static AuthService SignupOnAuthCreationFailureReturnsAuthCreationFailedError(Auth auth)
+        {
+            var user = UserFakers.GenerateSingleUser();
+
+            var mockUserService =
+                UserServiceMocks.Mock()
+                    .SetupGetInvalidEmailReturnsNull(auth.Email)
+                    .SetupCreateReturnsUser(user);
+
+            var mockHashService = HashServiceMocks.Mock().SetupHashPasswordReturnsHashedPassword(auth.Password, user.Password);
+
+            var mockJwtService = JwtServiceMocks.Mock().SetupGenerateTokenReturnsAuthCreationFailedError();
+
+            return new AuthService(
+                mockJwtService.Object,
                 mockHashService.Object,
                 mockUserService.Object);
         }
@@ -156,10 +141,15 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
             return (SignupWithDuplicateEmailReturnsDuplicateEmailErrors(auth), auth);
         }
 
-        public static (AuthService service, Auth auth) SignupOnCreationFailureReturnsCreationFailureError()
+        public static (AuthService service, Auth auth) SignupOnUserCreationFailureReturnsCreationFailedError()
         {
             var auth = AuthFakers.GenerateSingleAuth();
-            return (SignupOnCreationFailureReturnsCreationFailureError(auth), auth);
+            return (SignupOnUserCreationFailureReturnsCreationFailedError(auth), auth);
+        }
+        public static (AuthService service, Auth auth) SignupOnAuthCreationFailureReturnsAuthCreationFailedError()
+        {
+            var auth = AuthFakers.GenerateSingleAuth();
+            return (SignupOnAuthCreationFailureReturnsAuthCreationFailedError(auth), auth);
         }
         #endregion
     }

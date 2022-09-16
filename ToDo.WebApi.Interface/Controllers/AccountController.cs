@@ -38,12 +38,6 @@ namespace ToDo.WebApi.Interface.Controllers
         {
             return OkOrProblem(_accountService.Get(id));
         }
-        [HttpPost]
-        [Route("list")]
-        public IActionResult List()
-        {
-            return OkOrProblem(_accountService.List(null));
-        }
 
         [HttpPut]
         public IActionResult Update(UpdateAccount request)

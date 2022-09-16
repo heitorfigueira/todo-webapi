@@ -3,35 +3,14 @@ using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.Fakers;
 using ToDo.WebApi.Application.Services;
 using ToDo.WebApi.Domain.Entities;
-using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
+using ToDo.WebApi.Domain;
 
 namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
     public static class UserServiceSetups
     {
-        public static Mock<IUserService> Mock()
-        {
-            return new Mock<IUserService>();
-        }
 
         #region Get
-        public static Mock<IUserService> SetupGetValidEmailReturnsUser(this Mock<IUserService> mock, string Email, User user)
-        {
-            mock.Setup(service =>
-                    service.Get(Email))
-                    .Returns(user);
-
-            return mock;
-        }
-
-        public static Mock<IUserService> SetupGetInvalidEmailReturnsNull(this Mock<IUserService> mock, string Email)
-        {
-            mock.Setup(service =>
-                    service.Get(Email))
-                    .Returns<User>(null);
-
-            return mock;
-        }
 
         public static (UserService service, User user) GetValidEmailReturnsUser()
         {
@@ -43,36 +22,69 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
         public static UserService GetValidEmailReturnsUser(User user)
         {
-            var mockRepository = UserRepositorySetups.MockGetValidEmailReturnsUser(user);
+            var mockRepository = UserRepositoryMocks.Mock().SetupGetValidEmailReturnsUser(user);
 
             return new UserService(mockRepository.Object);
         }
 
         public static UserService GetInvalidEmailReturnsNull()
         {
-            var mockRepository = UserRepositorySetups.MockGetInvalidEmailReturnsNull();
+            var mockRepository = UserRepositoryMocks.Mock().SetupGetInvalidEmailReturnsNull();
 
             return new UserService(mockRepository.Object);
         }
         #endregion
 
         #region Create
-        public static Mock<IUserService> SetupCreateReturnsUser(this Mock<IUserService>  mock, User user)
-        {
-            mock.Setup(service =>
-                    service.Create(It.IsAny<User>()))
-                    .Returns(user);
 
-            return mock;
+        public static UserService CreateReturnsUser(User user)
+        {
+            var mockUserRepository = UserRepositoryMocks.Mock()
+                                        .SetupCreateReturnsUser(user);
+
+            return new UserService(mockUserRepository.Object);
         }
 
-        public static Mock<IUserService> SetupCreateReturnsNull(this Mock<IUserService> mock, User user)
+        public static (UserService service, User user) CreateReturnsUser()
         {
-            mock.Setup(service =>
-                    service.Create(user))
-                    .Returns<User>(null);
+            var user = UserFakers.GenerateSingleUser();
 
-            return mock;
+            return (CreateReturnsUser(user), user);
+        }
+
+
+        public static UserService CreateReturnsCreationFailedError()
+        {
+            var mockUserRepository = UserRepositoryMocks.Mock()
+                                        .SetupCreateReturnsNull();
+
+            return new UserService(mockUserRepository.Object);
+        }
+        #endregion
+
+        #region Delete
+        public static UserService DeleteReturnsDeletionFailedError()
+        {
+
+            var mockUserRepository = UserRepositoryMocks.Mock()
+                                        .SetupDeleteReturnsNull();
+
+            return new UserService(mockUserRepository.Object);
+        }
+
+        public static UserService DeleteReturnsUser(User user)
+        {
+            var mockUserRepository = UserRepositoryMocks.Mock()
+                                        .SetupDeleteReturnsUser(user);
+
+            return new UserService(mockUserRepository.Object);
+        }
+
+        public static (UserService service, User user) DeleteReturnsUser()
+        {
+            var user = UserFakers.GenerateSingleUser();
+
+            return (DeleteReturnsUser(user), user);
         }
         #endregion
     }

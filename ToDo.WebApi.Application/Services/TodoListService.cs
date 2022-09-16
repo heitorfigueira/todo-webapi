@@ -10,7 +10,9 @@ using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
+using System.Security.Principal;
 
 namespace ToDo.WebApi.Application.Services
 {
@@ -34,35 +36,49 @@ namespace ToDo.WebApi.Application.Services
         }
         public ErrorOr<TodoList> Create(CreateToDoList request)
         {
-            TodoList? list = null;
-            var createdListId = _todoListRepository
+            var createdList = _todoListRepository
                 .Create(_mapper.Map<TodoList>(request));
 
-            if (createdListId > 0 &&
-                request.Items is not null &&
-                request.Items.Count() > 0)
+            if (createdList is null)
+                return Errors.Repository.CreationFailed;
+
+            var failedCreations = new List<bool>();
+
+            if (request.Items is not null && request.Items.Count() > 0)
+                request.Items.ToList()
+                    .ForEach(item => {
+                        var created = _itemService.Create(item);
+
+                        if (created.IsError || created.Value is null)
+                            failedCreations.Add(false);
+                    });
+
+            if (failedCreations.Count > 0)
+                return Errors.Repository.CreationFailed;
+
+            var accountTodo = _accountTodoListRepository.Create(new()
             {
-                request.Items
-                    .ToList().ForEach(item => 
-                    _itemService.Create(item));
+                AccountId = request.accountId,
+                TodoListId = createdList.Id
+            });
 
-                _accountTodoListRepository.Create(new()
-                {
-                    AccountId = request.accountId,
-                    TodoListId = createdListId
-                });
+            if (accountTodo is null)
+                return Errors.Repository.CreationFailed;
 
-                list = _todoListRepository.Get(createdListId);
-            }
-
-            return list;
+            return createdList;
         }
 
-        public ErrorOr<TodoList?> Delete(int id)
+        public ErrorOr<TodoList> Delete(int id)
         {
             var list = _todoListRepository.Get(id);
 
-            _todoListRepository.Delete(id);
+            if (list is null)
+                return Errors.Repository.NotFound;
+
+            var delete = _todoListRepository.Delete(id);
+
+            if (delete is null)
+                return Errors.Repository.DeletionFailed;
 
             return list;
         }
@@ -78,9 +94,22 @@ namespace ToDo.WebApi.Application.Services
             throw new NotImplementedException();
         }
 
-        public ErrorOr<TodoList?> Update(UpdateToDoList request)
+        public ErrorOr<TodoList> Update(UpdateToDoList request)
         {
-            return _todoListRepository.Update(request.list) ? request.list : null;
+            var list = _todoListRepository.Get(request.Id);
+
+            if (list is null)
+                return Errors.Repository.NotFound;
+
+            list.Description = request.Description ?? list.Description;
+            list.Name = request.Name ?? list.Name;
+            
+            var updated = _todoListRepository.Update(list);
+
+            if (!updated)
+                return Errors.Repository.UpdateFailed;
+
+            return list;
         }
     }
 }

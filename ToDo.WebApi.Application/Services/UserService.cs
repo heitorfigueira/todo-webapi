@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
@@ -20,21 +22,31 @@ namespace ToDo.WebApi.Application.Services
             _userRepository = userRepository;
         }
 
-        public User? Create(User request)
+        public ErrorOr<User> Create(User request)
         {
-            var id = _userRepository.Create(request);
+            var user = _userRepository.Create(request);
 
-            return _userRepository.Get(id);
+            if (user is null)
+                return Errors.Repository.CreationFailed;
+
+            return user;
         }
 
-        public User? Delete(Guid id)
+        public ErrorOr<User> Delete(Guid id)
         {
-            return _userRepository.Delete(id);
+            var user = _userRepository.Delete(id);
+
+            if (user is null)
+                return Errors.Repository.DeletionFailed;
+
+            return user;
         }
 
-        public User? Get(string username)
+        public ErrorOr<User?> Get(string email)
         {
-            return _userRepository.GetByEmail(username);
+            var user = _userRepository.GetByEmail(email);
+
+            return user;
         }
     }
 }

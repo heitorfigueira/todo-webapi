@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Domain.Errors;
+using ToDo.WebApi.Domain;
 using ToDo.WebApi.Tests.Unit.Setups.Controllers;
 
 namespace ToDo.WebApi.Tests.Unit.Interface.Controllers.Auth

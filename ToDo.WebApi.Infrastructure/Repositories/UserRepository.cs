@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.WebApi.Application.Contracts.Repositories;
+using ToDo.WebApi.Domain;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Data.Repositories.EntityFramework;
@@ -19,9 +21,11 @@ namespace ToDo.WebApi.Infrastructure.Repositories
             _context = context;
         }
 
-        public User? GetByEmail(string email)
+        public ErrorOr<User?> GetByEmail(string email)
         {
-            return _context.Users.FirstOrDefault(user => user.Email == email);
+            var user = _context.Users.FirstOrDefault(user => user.Email == email);
+
+            return user;
         }
     }
 }

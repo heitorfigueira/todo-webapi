@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Domain.Errors;
+using ToDo.WebApi.Domain;
 using ToDo.WebApi.Tests.Unit.Setups.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Application.Services.Auth
 {
-    public class ServiceSigninTests
+    public class AuthSigninTests
     {
         [Fact]
         public void Signin_OnSuccess_ReturnsSession()

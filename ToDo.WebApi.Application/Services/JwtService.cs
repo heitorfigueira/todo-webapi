@@ -8,21 +8,21 @@ using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.Settings;
 using WebApi.Framework.Data.Entities;
 using WebApi.Framework.DependencyInjection;
+using ToDo.WebApi.Domain;
+using ErrorOr;
 
 namespace ToDo.WebApi.Application.Services
 {
     public class JwtService : ScopedService, IJwtService
     {
-        private readonly IConfiguration _configuration;
         private readonly JwtSettings _jwtSettings;
 
-        public JwtService(IConfiguration configuration, IOptions<JwtSettings> options)
+        public JwtService(IOptions<JwtSettings> options)
         {
-            _configuration = configuration;
             _jwtSettings = options.Value;
         }
 
-        public string GenerateTokenFrom<TUser>(TUser user)
+        public ErrorOr<string> GenerateTokenFrom<TUser>(TUser user)
             where TUser : notnull, AuditableEntityBase<Guid>
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -50,15 +50,19 @@ namespace ToDo.WebApi.Application.Services
                                         new SymmetricSecurityKey(key), 
                                         SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            if (token is null)
+                return Errors.Authentication.CreationFailed;
 
             return tokenHandler.WriteToken(token);
         }
 
-        public int? ValidateToken(string token)
+        public ErrorOr<int> ValidateToken(string token)
         {
-            if (token == null)
-                return null;
+            if (token is null)
+                return Errors.Authentication.InvalidCredentials; //TODO: 
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);

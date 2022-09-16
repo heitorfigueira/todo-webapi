@@ -1,9 +1,9 @@
-﻿using ErrorOr;
-using Microsoft.AspNetCore.Http;
+﻿ using ErrorOr;
 using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
@@ -17,7 +17,7 @@ namespace ToDo.WebApi.Application.Services
             _accountRepository = accountRepository;
         }
 
-        public ErrorOr<Account?> Create(CreateAccount request)
+        public ErrorOr<Account> Create(CreateAccount request)
         {
             Account newAccount = new()
             {
@@ -28,43 +28,50 @@ namespace ToDo.WebApi.Application.Services
                 UserId = request.UserId
             };
 
-            var id = _accountRepository.Create(newAccount);
-            return _accountRepository.Get(id);
+            var user = _accountRepository.Create(newAccount);
+
+            if (user is null)
+                return Errors.Repository.CreationFailed;
+
+            return user;
         }
 
-        public ErrorOr<Account?> Delete(Guid id)
+        public ErrorOr<Account> Delete(Guid id)
         {
-            return _accountRepository.Delete(id);
+            var account = _accountRepository.Delete(id);
+
+            if (account is null)
+                return Errors.Repository.DeletionFailed;
+
+            return account;
+
         }
 
         public ErrorOr<Account?> Get(Guid id)
         {
-            return _accountRepository.Get(id);
+            var account = _accountRepository.Get(id);
+
+            return account;
         }
 
-        public ErrorOr<IEnumerable<Account>> List(Account? request)
-        {
-            var list = _accountRepository.ListAll().ToList();
-            return list;
-        }
-
-
-        public ErrorOr<Account?> Update(UpdateAccount request)
+        public ErrorOr<Account> Update(UpdateAccount request)
         {
             var account = _accountRepository.Get(request.Id);
 
-            if (account is not null && 
-               (request.Name is not null || request.Type is not null))
-            {
-                account.Updated = DateTime.Now;
-                account.UpdatedByUser = ""; // TODO: pull from httpcontext
-                account.UpdatedByIP = ""; // TODO: pull from httpcontext
+            if (account is null)
+                return Errors.Repository.NotFound;
 
-                account.Name = request.Name ?? account.Name;
-                account.Type = request.Type ?? account.Type;
+            account.Updated = DateTime.Now;
+            account.UpdatedByUser = ""; // TODO: pull from httpcontext
+            account.UpdatedByIP = ""; // TODO: pull from httpcontext
 
-                _accountRepository.Update(account);
-            }
+            account.Name = request.Name ?? account.Name;
+            account.Type = request.Type ?? account.Type;
+
+            var accountUpdated = _accountRepository.Update(account);
+
+            if (!accountUpdated)
+                return Errors.Repository.UpdateFailed;
 
             return account;
         }

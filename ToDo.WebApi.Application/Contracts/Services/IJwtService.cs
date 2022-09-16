@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IJwtService
     {
-        string GenerateTokenFrom<T>(T user) where T : notnull, AuditableEntityBase<Guid>;
-        int? ValidateToken(string token);
+        ErrorOr<string> GenerateTokenFrom<T>(T user) where T : notnull, AuditableEntityBase<Guid>;
+        ErrorOr<int> ValidateToken(string token);
     }
 }

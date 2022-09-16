@@ -9,13 +9,13 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Controllers
     {
         public static AuthController SigninWithCredentialsReturnsSession(Auth auth)
         {
-            var mockAuthService = AuthServiceSetups.Mock().SetupSigninWithValidCredentialsReturnsSession(auth);
+            var mockAuthService = AuthServiceMocks.Mock().SetupSigninWithValidCredentialsReturnsSession(auth);
 
             return new(mockAuthService.Object);
         }
         public static AuthController SigninWithInvalidCredentialsReturnsInvalidCredentialsError(Auth auth)
         {
-            var mockAuthService = AuthServiceSetups.Mock().SetupSigninWithInvalidCredentialsReturnsError(auth);
+            var mockAuthService = AuthServiceMocks.Mock().SetupSigninWithInvalidCredentialsReturnsCreationFailedError(auth);
 
             return new(mockAuthService.Object);
         }

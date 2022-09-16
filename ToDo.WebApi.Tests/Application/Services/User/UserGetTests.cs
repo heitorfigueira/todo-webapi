@@ -2,7 +2,7 @@
 
 namespace ToDo.WebApi.Tests.Unit.Application.Services.User
 {
-    public class ServiceGetTests
+    public class UserGetTests
     {
         [Fact]
         public void Get_WithValidEmail_ReturnsUser()
@@ -14,7 +14,9 @@ namespace ToDo.WebApi.Tests.Unit.Application.Services.User
             var result = sut.Get(user.Email);
 
             // Assert
-            result.Should().BeOfType<Domain.Entities.User>();
+            result.IsError.Should().BeFalse();
+            result.Value.Should().NotBeNull();
+            result.Value.Should().BeEquivalentTo(user);
         }
 
         [Fact]
@@ -27,7 +29,8 @@ namespace ToDo.WebApi.Tests.Unit.Application.Services.User
             var result = sut.Get(It.IsAny<string>());
 
             // Assert
-            result.Should().BeNull();
+            result.IsError.Should().BeFalse();
+            result.Value.Should().BeNull();
         }
     }
 }

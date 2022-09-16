@@ -11,7 +11,9 @@ namespace ToDo.WebApi.Application.Fakers
                 fake => new User()
                 {
                     Email = fake.Person.Email,
-                    Password = fake.Person.FirstName + fake.Random.Int()
+                    Password = fake.Person.FirstName + fake.Random.Int(),
+                    Created = DateTime.Now,
+                    CreatedBy = "User Faker"
                 });
 
         public static User GenerateSingleUser()

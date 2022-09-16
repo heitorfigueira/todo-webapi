@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToDo.WebApi.Application.Fakers
 {
-    internal class TodoItemsFakers
+    public class MapperFakers
     {
     }
 }

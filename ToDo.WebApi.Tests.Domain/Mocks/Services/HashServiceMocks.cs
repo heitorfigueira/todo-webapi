@@ -3,7 +3,7 @@ using ToDo.WebApi.Application.Contracts.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Setups.Services
 {
-    public static class HashServiceSetups
+    public static class HashServiceMocks
     {
         public static Mock<IHashService> Mock()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace ToDo.WebApi.Application.Contracts.Repositories
 {
     public interface IUserRepository : IRepository<User, Guid>
     {
-        User? GetByEmail(string email);
+        ErrorOr<User?> GetByEmail(string email);
     }
 }

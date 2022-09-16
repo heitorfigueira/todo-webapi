@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.WebApi.Application.DTOs.ValueObject;
-using ToDo.WebApi.Domain.Errors;
+using ToDo.WebApi.Domain;
 using ToDo.WebApi.Tests.Unit.Setups.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Application.Services.Auth
 {
-    public class ServiceSignupTests
+    public class AuthSignupTests
     {
         [Fact]
         public void Signup_OnSuccess_ReturnsSession()
@@ -43,18 +43,33 @@ namespace ToDo.WebApi.Tests.Unit.Application.Services.Auth
         }
 
         [Fact]
-        public void Signup_OnCreationFailure_ReturnsCreationFailureError()
+        public void Signup_OnAuthCreationFailure_ReturnsCreationFailureError()
         {
             // Arrange
-            var (_sut, request) = AuthServiceSetups.SignupOnCreationFailureReturnsCreationFailureError();
+            var (sut, auth) = AuthServiceSetups.SignupOnAuthCreationFailureReturnsAuthCreationFailedError();
 
             // Act
-            var result = _sut.Signup(request);
+            var result = sut.Signup(auth);
 
             // Assert
             result.Should().BeOfType<ErrorOr<Session>>();
             result.IsError.Should().BeTrue();
             result.Errors.Should().Contain(Errors.Authentication.CreationFailed);
+        }
+
+        [Fact]
+        public void Signup_OnUserCreationFailure_ReturnsCreationFailureError()
+        {
+            // Arrange
+            var (sut, auth) = AuthServiceSetups.SignupOnUserCreationFailureReturnsCreationFailedError();
+
+            // Act
+            var result = sut.Signup(auth);
+
+            // Assert
+            result.Should().BeOfType<ErrorOr<Session>>();
+            result.IsError.Should().BeTrue();
+            result.Errors.Should().Contain(Errors.Repository.CreationFailed);
         }
     }
 }

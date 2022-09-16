@@ -91,6 +91,7 @@ namespace ToDo.WebApi.Interface.Configurations
             var todoItemSeeder = new Faker<TodoItem>()
                            .CustomInstantiator(faker => new()
                            {
+                               Id = faker.UniqueIndex,
                                Description = faker.Lorem.Paragraph(1),
                                Done = faker.Random.Number() % 2 == 0 ? true : false
                            });
@@ -98,6 +99,7 @@ namespace ToDo.WebApi.Interface.Configurations
             var todoListsSeeder = new Faker<TodoList>()
                             .CustomInstantiator(faker => new()
                             {
+                                Id = faker.UniqueIndex,
                                 Name = faker.Lorem.Lines(1),
                                 Description = faker.Lorem.Lines(2)
                             });
