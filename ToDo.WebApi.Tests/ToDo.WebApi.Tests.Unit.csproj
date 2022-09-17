@@ -38,6 +38,9 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="Interface\Controllers\Account\" />
+    <Folder Include="Interface\Controllers\TodoItem\" />
+    <Folder Include="Interface\Controllers\TodoList\" />
   </ItemGroup>
 
 </Project>

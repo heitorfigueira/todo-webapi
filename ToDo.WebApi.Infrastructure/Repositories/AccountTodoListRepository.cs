@@ -8,13 +8,14 @@ using ToDo.WebApi.Application.Contracts.Repositories;
 using ToDo.WebApi.Domain.Entities.Relations;
 using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Data.Repositories.EntityFramework;
+using WebApi.Framework.DataAccess.Caching;
 
 namespace ToDo.WebApi.Infrastructure.Repositories
 {
-    public class AccountTodoListRepository : EntityFrameworkIdentityRepositoryBase<AccountTodoList>, IAccountTodoListRepository
+    public class AccountTodoListRepository : CachedEntityFrameworkIdentityRepositoryBase<AccountTodoList>, IAccountTodoListRepository
     {
         private readonly ApplicationContext applicationContext;
-        public AccountTodoListRepository(ApplicationContext context) : base(context)
+        public AccountTodoListRepository(ApplicationContext context, ICachingService cachingService) : base(context, cachingService)
         {
             applicationContext = context;
         }

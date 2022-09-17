@@ -1,22 +1,19 @@
 ﻿using ErrorOr;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using ToDo.WebApi.Application.Contracts.Repositories;
-using ToDo.WebApi.Domain;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Data.Repositories.EntityFramework;
+using WebApi.Framework.DataAccess.Caching;
 
 namespace ToDo.WebApi.Infrastructure.Repositories
 {
-    public class UserRepository : EntityFrameworkRepositoryBase<User, Guid>, IUserRepository
+    public class UserRepository : CachedEntityFrameworkRepositoryBase<User, Guid>, IUserRepository
     {
         private readonly ApplicationContext _context;
 
-        public UserRepository(ApplicationContext context) : base(context)
+        public UserRepository(ApplicationContext context, ICachingService cachingService) : base(context, cachingService)
         {
             _context = context;
         }

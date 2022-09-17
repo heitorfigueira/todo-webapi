@@ -21,7 +21,13 @@ namespace ToDo.WebApi.Interface.Controllers
         [Route("signin")]
         public IActionResult Signin(Auth request)
         {
-            return OkOrProblem(_authService.Signin(request));
+            return _authService.Signin(request)
+                .Match(session =>
+                {
+                    // TODO: add headers and define session user
+
+                    return Ok(session);
+                }, errors => Problem(errors));
         }
 
         [HttpPut]
@@ -35,7 +41,13 @@ namespace ToDo.WebApi.Interface.Controllers
         [Route("signup")]
         public IActionResult Signup(Auth request)
         {
-            return OkOrProblem(_authService.Signup(request));
+            return _authService.Signup(request)
+                .Match(session =>
+                {
+                    // TODO: add headers and define session user
+
+                    return Ok(session);
+                }, errors => Problem(errors));
         }
     }
 }

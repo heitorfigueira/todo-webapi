@@ -43,6 +43,7 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<bool> Signoff()
         {
+            // TODO: remove claims and session/user stuff from headers
 
             return true;
         }
