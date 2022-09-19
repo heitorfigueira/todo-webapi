@@ -9,16 +9,19 @@ using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities
 {
-    public class Account : AuditableEntityBase<Guid>
+    public class Account : AuditableEntityBase<Guid, Guid>
     {
-        public string Name { get; set; }
-        public AccountTypes Type { get; set; }
-
-
         public Guid UserId { get; set; }
+        public string Name { get; set; }
+        public AccountTypes TypeId { get; set; }
+
+        public override Guid CreatedBy { get; set; }
+        public override Guid UpdatedBy { get; set; }
+
+        [JsonIgnore]
+        public virtual AccountType AccountType { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }
-        
         [JsonIgnore]
         public virtual ICollection<TodoList> Lists { get; set; }
     }

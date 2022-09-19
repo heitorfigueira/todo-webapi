@@ -10,6 +10,20 @@ namespace ToDo.WebApi.Application.Fakers
 {
     public static class TodoItemFakers
     {
+        private static Faker<TodoItem> _faker =
+            new Faker<TodoItem>()
+                .CustomInstantiator(faker => new()
+                {
+                    Id = faker.UniqueIndex,
+                    Description = faker.Lorem.Paragraph(1),
+                    Done = faker.Random.Number() % 2 == 0 ? true : false
+                });
+
+        public static Faker<TodoItem> InternalFaker()
+        {
+            return _faker;
+        }
+
         public static TodoItem GenerateSingleItem(int todoListId)
         {
             return GenerateTodoItem(todoListId, 1).First();
@@ -17,14 +31,9 @@ namespace ToDo.WebApi.Application.Fakers
 
         public static ICollection<TodoItem> GenerateTodoItem(int todoListId, int quantity)
         {
-            return new Faker<TodoItem>()
-                           .CustomInstantiator(faker => new()
-                           {
-                               TodoListId = todoListId,
-                               Id = faker.UniqueIndex,
-                               Description = faker.Lorem.Paragraph(1),
-                               Done = faker.Random.Number() % 2 == 0 ? true : false
-                           }).Generate(quantity);
+            return _faker
+                .RuleFor(item => item.TodoListId, todoListId)
+                .Generate(quantity);
         }
     }
 }

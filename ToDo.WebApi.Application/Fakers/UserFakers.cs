@@ -10,11 +10,16 @@ namespace ToDo.WebApi.Application.Fakers
             new Faker<User>().CustomInstantiator(
                 fake => new User()
                 {
+                    Id = fake.Random.Guid(),
                     Email = fake.Person.Email,
                     Password = fake.Person.FirstName + fake.Random.Int(),
-                    Created = DateTime.Now,
-                    CreatedBy = "User Faker"
+                    Created = DateTime.Now
                 });
+
+        public static Faker<User> InternalFaker()
+        {
+            return _userFaker;
+        }
 
         public static User GenerateSingleUser()
         {

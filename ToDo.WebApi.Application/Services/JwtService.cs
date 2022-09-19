@@ -23,7 +23,7 @@ namespace ToDo.WebApi.Application.Services
         }
 
         public ErrorOr<string> GenerateTokenFrom<TUser>(TUser user)
-            where TUser : notnull, AuditableEntityBase<Guid>
+            where TUser : notnull, AuditableEntityBase<Guid, Guid>
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);

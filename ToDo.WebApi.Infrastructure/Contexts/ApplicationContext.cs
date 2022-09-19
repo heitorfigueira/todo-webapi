@@ -7,25 +7,29 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain.Entities.Relations;
+using ToDo.WebApi.Domain.Enums;
 
 namespace ToDo.WebApi.Infrastructure.Contexts
 {
     public class ApplicationContext : DbContext
     {
-        private readonly IConfiguration _config;
 
-        public ApplicationContext(IConfiguration config, DbContextOptions<ApplicationContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            _config = config;
         }
-        public ApplicationContext(IConfiguration config, DbContextOptions<DbContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<DbContext> options) : base(options)
         {
-            _config = config;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
         }
 
         public DbSet<TodoList> TodoLists { get; set; }
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<User> Users { get; set; }
 
         public DbSet<AccountTodoList> AccountTodoList { get; set; }

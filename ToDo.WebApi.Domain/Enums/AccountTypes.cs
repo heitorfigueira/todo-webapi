@@ -9,7 +9,7 @@ namespace ToDo.WebApi.Domain.Enums
     public enum AccountTypes
     {
         Administrator = 0,
-        Common,
-        Support
+        Common = 1,
+        Support = 2
     }
 }

@@ -5,6 +5,7 @@ using ToDo.WebApi.Application.DTOs.Requests;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
+using AutoMapper;
 
 namespace ToDo.WebApi.Application.Services
 {
@@ -12,23 +13,14 @@ namespace ToDo.WebApi.Application.Services
     {
         private readonly IAccountRepository _accountRepository;
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, IMapper mapper) : base(mapper)
         {
             _accountRepository = accountRepository;
         }
 
         public ErrorOr<Account> Create(CreateAccount request)
         {
-            Account newAccount = new()
-            {
-                Created = DateTime.Now,
-                CreatedBy = "", // TODO: get from user claims
-                Type = request.Type,
-                Name = request.Name,
-                UserId = request.UserId
-            };
-
-            var user = _accountRepository.Create(newAccount);
+            var user = _accountRepository.Create(_mapper.Map<Account>(request));
 
             if (user is null)
                 return Errors.Repository.CreationFailed;
@@ -62,11 +54,11 @@ namespace ToDo.WebApi.Application.Services
                 return Errors.Repository.NotFound;
 
             account.Updated = DateTime.Now;
-            account.UpdatedByUser = ""; // TODO: pull from httpcontext
+            //account.UpdatedBy = ""; // TODO: pull from httpcontext
             account.UpdatedByIP = ""; // TODO: pull from httpcontext
 
             account.Name = request.Name ?? account.Name;
-            account.Type = request.Type ?? account.Type;
+            account.TypeId = request.TypeId ?? account.TypeId;
 
             var accountUpdated = _accountRepository.Update(account);
 

@@ -6,11 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Core;
+using System.Data.Entity.Core.Metadata.Edm;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.Fakers;
 using ToDo.WebApi.Application.Services;
 using ToDo.WebApi.Application.Settings;
 using ToDo.WebApi.Domain.Entities;
+using ToDo.WebApi.Domain.Enums;
 using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Installers;
 
@@ -44,76 +46,47 @@ namespace ToDo.WebApi.Interface.Configurations
             var applicationContext = app.Services.GetRequiredService<ApplicationContext>();
             var hashService = app.Services.GetRequiredService<IHashService>();
 
+            var adminId = Guid.NewGuid();
+
             User adminUser = new()
             {
-                Id = Guid.NewGuid(),
+                Id = adminId,
                 Email = "admin@admin.adm",
                 Password = hashService.HashPassword("Admin!234"),
                 Account = new()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Seed Admin User",
-                    Type = Domain.Enums.AccountTypes.Administrator,
+                    TypeId = AccountTypes.Administrator,
                     Created = DateTime.Now,
-                    CreatedBy = ""
+                    CreatedBy = adminId
                 },
                 Created = DateTime.Now,
-                CreatedBy = ""
+                CreatedBy = adminId
             };
 
             applicationContext.Users.Add(adminUser);
             applicationContext.Accounts.Add(adminUser.Account);
 
-            var seedUsers = new Faker<User>()
-                            .CustomInstantiator(faker => new()
-                            {
-                                Id = faker.Random.Guid(),
-                                Email = faker.Person.Email,
-                                Password = hashService
-                                                .HashPassword(faker.Internet.Password()),
-                                Created = DateTime.Now,
-                                CreatedBy = ""
-                            })
-                            .Generate(Int32.Parse(
-                                app.Configuration["Randomizer:DefaultQuantityGeneration"]));
-
-            var accountSeeder = new Faker<Account>()
-                            .CustomInstantiator(faker => new()
-                            {
-                                Id = faker.Random.Guid(),
-                                Name = faker.Person.FullName,
-                                Type = Domain.Enums.AccountTypes.Common,
-                                Created = DateTime.Now,
-                                CreatedBy = ""
-                            });
-
-
-            var todoItemSeeder = new Faker<TodoItem>()
-                           .CustomInstantiator(faker => new()
-                           {
-                               Id = faker.UniqueIndex,
-                               Description = faker.Lorem.Paragraph(1),
-                               Done = faker.Random.Number() % 2 == 0 ? true : false
-                           });
-
-            var todoListsSeeder = new Faker<TodoList>()
-                            .CustomInstantiator(faker => new()
-                            {
-                                Id = faker.UniqueIndex,
-                                Name = faker.Lorem.Lines(1),
-                                Description = faker.Lorem.Lines(2)
-                            });
+            var seedUsers = UserFakers.InternalFaker()
+                                .RuleFor(user => user.CreatedBy, adminUser.Id)
+                                .RuleFor(user => user.Password, faker => hashService.HashPassword(faker.Internet.Password()))
+                                .Generate(Int32.Parse(app.Configuration["Randomizer:DefaultQuantityGeneration"]));
 
             seedUsers.ForEach(user =>
             {
                 applicationContext.Users.Add(user);
-                applicationContext.Accounts.Add(
-                    accountSeeder.RuleFor(account => account.UserId, user.Id).Generate());
 
-                var lists = todoListsSeeder.GenerateBetween(0, 4);
+                var account = AccountFakers.GenerateAccountTypeToUser(user.Id, AccountTypes.Common);
+
+                applicationContext.Accounts.Add(account);
+
+                var lists = TodoListFakers.InternalFaker().GenerateBetween(0, 4);
+
                 lists.ForEach(list =>
                 {
-                    list.Items = todoItemSeeder.RuleFor(item => item.TodoListId, list.Id)
+                    list.Items = TodoItemFakers.InternalFaker()
+                                               .RuleFor(item => item.TodoListId, list.Id)
                                                .GenerateBetween(1, 10);
 
                     applicationContext.TodoLists.Add(list);
@@ -121,10 +94,9 @@ namespace ToDo.WebApi.Interface.Configurations
                     applicationContext.AccountTodoList.Add(new()
                     {
                         TodoListId = list.Id,
-                        AccountId = user.Account!.Id
+                        AccountId = account.Id
                     });
                 });
-
             });
 
             applicationContext.SaveChanges();

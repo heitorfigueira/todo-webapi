@@ -10,14 +10,14 @@ using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Application.Configurations
 {
-    internal class SettingsConfiguration : IInstaller
+    internal class SettingsConfiguration //: IInstaller
     {
         public int InstallerOrder = 2;
 
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<AuthSettings>(configuration.GetSection(nameof(AuthSettings)))
-                    .Configure<ConnectionStringSettings>(configuration.GetSection(nameof(ConnectionStringSettings)))
+                    .Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)))
                     .Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
         }
     }

@@ -12,6 +12,20 @@ namespace ToDo.WebApi.Application.Fakers
 {
     public static class AccountFakers
     {
+        private static Faker<Account> _faker = 
+            new Faker<Account>().CustomInstantiator(
+                            fake => new()
+                            {
+                                Id = fake.Random.Guid(),
+                                Name = fake.Person.FullName,
+                                TypeId = AccountTypes.Common,
+                                Created = DateTime.Now
+                            });
+
+        public static Faker<Account> InternalFakerSetup()
+        {
+            return _faker;
+        }
         public static Account GenerateAccountTypeToUser(Guid userId, AccountTypes type)
         {
             return CreateFakerWith(userId, type).Generate();
@@ -24,15 +38,10 @@ namespace ToDo.WebApi.Application.Fakers
         }
         private static Faker<Account> CreateFakerWith(Guid userId, AccountTypes type)
         {
-            return new Faker<Account>().CustomInstantiator(
-                            fake => new()
-                            {
-                                UserId = userId,
-                                Name = fake.Person.FullName,
-                                Type = type,
-                                Created = DateTime.Now,
-                                CreatedBy = "Account Faker"
-                            });
+            return _faker
+                        .RuleFor(user => user.CreatedBy, userId)
+                        .RuleFor(user => user.UserId, userId)
+                        .RuleFor(user => user.TypeId, faker => type);
         }
     }
 }

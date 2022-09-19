@@ -15,6 +15,7 @@ var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dl
                           .ToArray();
 
 services
+        .ConfigureSettingsFromAssemblies(configuration, assemblies)
         .AddServicesFromAssemblies(configuration, assemblies)
         .AddInstallersFromAssemblies(configuration, assemblies);
 

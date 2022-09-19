@@ -5,6 +5,7 @@ using ToDo.WebApi.Application.DTOs.ValueObject;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
+using AutoMapper;
 
 namespace ToDo.WebApi.Application.Services
 {
@@ -14,7 +15,7 @@ namespace ToDo.WebApi.Application.Services
         private readonly IHashService _hashService;
         private readonly IUserService _userService;
 
-        public AuthService(IJwtService jwtService, IHashService hashService, IUserService userService)
+        public AuthService(IJwtService jwtService, IHashService hashService, IUserService userService, IMapper mapper) : base(mapper)
         {
             _jwtService = jwtService;
             _hashService = hashService; 
@@ -50,20 +51,19 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<Session> Signup(AuthRequests.Auth request)
         {
-            var user = _userService.Get(request.Email);
+            var get = _userService.Get(request.Email);
 
-            if (user.IsError)
-                return user.Errors;
-            else if (user.Value is not null)
+            if (get.IsError)
+                return get.Errors;
+            else if (get.Value is not null)
                 return Errors.Authentication.DuplicateEmail;
 
-            User newUser = new()
-            {
-                Email = request.Email, 
-                Password = _hashService.HashPassword(request.Password)
-            };
+            var user = _mapper.Map<User>(request);
+            user.Password = _hashService.HashPassword(user.Password);
 
-            var createdUser = _userService.Create(newUser);
+            //user.CreatedBy = ""; //TODO: pull from httpcontext
+
+            var createdUser = _userService.Create(user);
 
             if (createdUser.IsError)
                 return createdUser.Errors;

@@ -11,10 +11,10 @@ namespace ToDo.WebApi.Application.Validations.Account
 
             RuleFor(update => update.Name)
                 .NotEmpty().Unless(update => update.Name is null)
-                .NotNull().Unless(update => update.Type is not null);
+                .NotNull().Unless(update => update.TypeId is not null);
 
-            RuleFor(update => update.Type)
-                .NotEmpty().Unless(update => update.Type is null)
+            RuleFor(update => update.TypeId)
+                .NotEmpty().Unless(update => update.TypeId is null)
                 .NotNull().Unless(update => update.Name is not null);
         }
     }

@@ -10,7 +10,7 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IJwtService
     {
-        ErrorOr<string> GenerateTokenFrom<T>(T user) where T : notnull, AuditableEntityBase<Guid>;
+        ErrorOr<string> GenerateTokenFrom<T>(T user) where T : notnull, AuditableEntityBase<Guid, Guid>;
         ErrorOr<int> ValidateToken(string token);
     }
 }

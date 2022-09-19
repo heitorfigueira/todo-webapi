@@ -11,7 +11,7 @@ using WebApi.Framework.Data.Entities;
 
 namespace ToDo.WebApi.Domain.Entities
 {
-    public class User : AuditableEntityBase<Guid>
+    public class User : AuditableEntityBase<Guid, Guid>
     {
         [EmailAddress]
         [Required]

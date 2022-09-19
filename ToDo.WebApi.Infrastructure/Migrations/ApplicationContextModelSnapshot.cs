@@ -28,29 +28,29 @@ namespace ToDo.WebApi.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("AccountTypeId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("TypeId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UpdatedByIP")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("UpdatedByUser")
-                        .IsRequired()
+                    b.Property<string>("UpdatedByIP")
                         .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
@@ -58,10 +58,44 @@ namespace ToDo.WebApi.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("AccountTypeId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("ToDo.WebApi.Domain.Entities.AccountType", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 0,
+                            Name = "Administrator"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Common"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Support"
+                        });
                 });
 
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.Relations.AccountTodoList", b =>
@@ -140,15 +174,13 @@ namespace ToDo.WebApi.Infrastructure.Migrations
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -158,31 +190,45 @@ namespace ToDo.WebApi.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UpdatedByIP")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("UpdatedByUser")
-                        .IsRequired()
+                    b.Property<string>("UpdatedByIP")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.Account", b =>
                 {
-                    b.HasOne("ToDo.WebApi.Domain.Entities.User", "User")
-                        .WithOne("Account")
-                        .HasForeignKey("ToDo.WebApi.Domain.Entities.Account", "UserId")
+                    b.HasOne("ToDo.WebApi.Domain.Entities.AccountType", "AccountType")
+                        .WithMany()
+                        .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("ToDo.WebApi.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ToDo.WebApi.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("AccountType");
                 });
 
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.Relations.AccountTodoList", b =>
@@ -222,19 +268,40 @@ namespace ToDo.WebApi.Infrastructure.Migrations
                         .HasForeignKey("AccountId");
                 });
 
+            modelBuilder.Entity("ToDo.WebApi.Domain.Entities.User", b =>
+                {
+                    b.HasOne("ToDo.WebApi.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ToDo.WebApi.Domain.Entities.Account", "Account")
+                        .WithOne("User")
+                        .HasForeignKey("ToDo.WebApi.Domain.Entities.User", "Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ToDo.WebApi.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.Account", b =>
                 {
                     b.Navigation("Lists");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ToDo.WebApi.Domain.Entities.TodoList", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("ToDo.WebApi.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }
