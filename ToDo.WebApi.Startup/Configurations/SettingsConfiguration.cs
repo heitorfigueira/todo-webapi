@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ToDo.WebApi.Application.Settings;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Application.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     internal class SettingsConfiguration //: IInstaller
     {

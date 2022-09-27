@@ -5,7 +5,7 @@ using ToDo.WebApi.Application.Services;
 using WebApi.Framework.Caching;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Application.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class CachingConfiguration : IInstaller
     {

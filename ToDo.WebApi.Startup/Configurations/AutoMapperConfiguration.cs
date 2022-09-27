@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Application.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class AutoMapperConfiguration : IInstaller
     {

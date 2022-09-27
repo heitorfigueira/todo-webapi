@@ -16,7 +16,7 @@ using ToDo.WebApi.Domain.Enums;
 using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Interface.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class DbContextConfiguration : IInstaller, IMiddlewareInstaller
     {

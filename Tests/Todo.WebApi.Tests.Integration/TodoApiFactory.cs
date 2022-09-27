@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ToDo.WebApi.Application.Configurations;
-using ToDo.WebApi.Infrastructure.Contexts;
 using ToDo.WebApi.Startup.Configurations;
+using ToDo.WebApi.Infrastructure.Contexts;
 using WebApi.Framework.Caching;
 using WebApi.Framework.Extensions;
 

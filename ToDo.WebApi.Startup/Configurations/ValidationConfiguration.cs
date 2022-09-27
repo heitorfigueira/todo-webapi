@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Application.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class ValidationConfiguration : IInstaller
     {

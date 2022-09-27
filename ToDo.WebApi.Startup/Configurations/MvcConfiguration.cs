@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Interface.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class MvcConfiguration : IInstaller, IMiddlewareInstaller
     {

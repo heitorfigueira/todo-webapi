@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using WebApi.Framework.Installers;
 
-namespace ToDo.WebApi.Interface.Configurations
+namespace ToDo.WebApi.Startup.Configurations
 {
     public class SwaggerConfiguration : IInstaller, IMiddlewareInstaller
     {

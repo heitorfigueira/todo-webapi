@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain.Enums;
 
-namespace ToDo.WebApi.Infrastructure.Configurations.Entities
+namespace ToDo.WebApi.Startup.Configurations.Entities
 {
     public class AccountTypeEntityConfiguration : IEntityTypeConfiguration<AccountType>
     {
