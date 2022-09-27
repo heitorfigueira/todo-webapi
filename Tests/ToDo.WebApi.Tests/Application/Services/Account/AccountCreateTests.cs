@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
-using ToDo.WebApi.Tests.Unit.Setups.Services;
 using ToDo.WebApi.Domain;
 using ToDo.WebApi.Domain.Enums;
+using ToDo.WebApi.Tests.Unit.Setups.Services;
 
 namespace ToDo.WebApi.Tests.Unit.Application.Services.Account
 {

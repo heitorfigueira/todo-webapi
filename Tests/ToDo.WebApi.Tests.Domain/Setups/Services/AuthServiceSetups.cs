@@ -21,7 +21,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
             var mockUserService = UserServiceMocks.Mock().SetupGetValidEmailReturnsUser(user);
 
-            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthCorrectPasswordReturnsTrue(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthCorrectPasswordReturnsTrue(user.Password, auth.Password);
 
             var mockJwtService = JwtServiceMocks.Mock().SetupGenerateTokenValidUserReturnsJwt(user, validJwt);
 
@@ -41,7 +41,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
 
             var mockUserService = UserServiceMocks.Mock().SetupGetValidEmailReturnsUser(user);
 
-            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(auth.Password, user.Password);
+            var mockHashService = HashServiceMocks.Mock().SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(user.Password, auth.Password);
 
             return new AuthService(JwtServiceMocks.Mock().Object, mockHashService.Object, mockUserService.Object, MapperMocks.Mock().Object);
         }

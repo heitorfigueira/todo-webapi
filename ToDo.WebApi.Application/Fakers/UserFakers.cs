@@ -11,9 +11,7 @@ namespace ToDo.WebApi.Application.Fakers
                 fake => new User()
                 {
                     Id = fake.Random.Guid(),
-                    Email = fake.Person.Email,
-                    Password = fake.Person.FirstName + fake.Random.Int(),
-                    Created = DateTime.Now
+                    Email = fake.Person.Email
                 });
 
         public static Faker<User> InternalFaker()

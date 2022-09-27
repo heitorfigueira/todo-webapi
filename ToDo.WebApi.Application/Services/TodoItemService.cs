@@ -9,7 +9,7 @@ using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class TodoItemService : ScopedService, ITodoItemService
+    public class TodoItemService : TransientService, ITodoItemService
     {
         private readonly ITodoItemRepository _todoItemRepository;
 
@@ -25,7 +25,7 @@ namespace ToDo.WebApi.Application.Services
         {
             var createdItem = 
                 _todoItemRepository.Create(
-                    _mapper.Map<TodoItem>(request));
+                    _mapper!.Map<TodoItem>(request));
 
             if (createdItem is null)
                 return Errors.Repository.CreationFailed;

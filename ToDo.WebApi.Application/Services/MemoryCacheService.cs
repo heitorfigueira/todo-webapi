@@ -1,5 +1,5 @@
 ﻿using LazyCache;
-using WebApi.Framework.DataAccess.Caching;
+using WebApi.Framework.Caching;
 
 namespace ToDo.WebApi.Application.Services
 {

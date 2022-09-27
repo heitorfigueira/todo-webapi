@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.Framework.DataAccess.Caching;
+using WebApi.Framework.Caching;
 
 namespace ToDo.WebApi.Application.Services
 {

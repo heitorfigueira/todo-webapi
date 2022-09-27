@@ -9,15 +9,20 @@ namespace ToDo.WebApi.Application.Fakers
             new Faker<Auth>().CustomInstantiator(
                 fake => new Auth(
                         fake.Person.Email,
-                        fake.Person.FirstName + fake.Random.Int()));
+                        fake.Random.Word().ToUpper() + "!!" + fake.Random.Number(0, 10_000)));
+
+        public static Faker<Auth> InternalFaker()
+        {
+            return _authFaker;
+        }
 
         public static Auth GenerateSingleAuth()
         {
-            return _authFaker.Generate();
+            return InternalFaker().Generate();
         }
         public static IEnumerable<Auth> GenerateAuth(int quantity)
         {
-            return _authFaker.Generate(quantity);
+            return InternalFaker().Generate(quantity);
         }
     }
 }

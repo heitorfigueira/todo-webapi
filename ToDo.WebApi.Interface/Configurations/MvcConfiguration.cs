@@ -8,7 +8,7 @@ namespace ToDo.WebApi.Interface.Configurations
     public class MvcConfiguration : IInstaller, IMiddlewareInstaller
     {
         public int InstallerOrder = 4;
-        public int MiddlewareOrder = 4;
+        public int MiddlewareOrder = 2;
 
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
@@ -18,8 +18,15 @@ namespace ToDo.WebApi.Interface.Configurations
 
         public void AddMiddlewareInstaller(WebApplication app)
         {
+            app.UseCors(opt => opt
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseHttpsRedirection();
-            app.MapControllers();
+
+            app.MapControllers()
+                .RequireAuthorization() ;
         }
     }
 }

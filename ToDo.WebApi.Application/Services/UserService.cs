@@ -13,7 +13,7 @@ using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class UserService : ScopedService, IUserService
+    public class UserService : TransientService, IUserService
     {
         private readonly IUserRepository _userRepository;
 
@@ -45,6 +45,13 @@ namespace ToDo.WebApi.Application.Services
         public ErrorOr<User?> Get(string email)
         {
             var user = _userRepository.GetByEmail(email);
+
+            return user;
+        }
+
+        public ErrorOr<User?> Get(Guid id)
+        {
+            var user = _userRepository.Get(id);
 
             return user;
         }

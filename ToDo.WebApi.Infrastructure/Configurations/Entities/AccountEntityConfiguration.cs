@@ -25,14 +25,15 @@ namespace ToDo.WebApi.Infrastructure.Configurations.Entities
                 .HasForeignKey(acc => acc.UpdatedBy)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(acc => acc.User)
-                .WithOne(user => user.Account)
-                .HasForeignKey<User>(us => us.Id)
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(acc => acc.User)
+            //    .WithOne()
+            //    .HasForeignKey<User>(us => us.Id)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(acc => acc.CreatedBy)
                 .HasConversion<Guid>();
+
             builder
                 .Property(acc => acc.UpdatedBy)
                 .HasConversion<Guid>();

@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class AccountService : ScopedService, IAccountService
+    public class AccountService : TransientService, IAccountService
     {
         private readonly IAccountRepository _accountRepository;
 
@@ -20,12 +20,12 @@ namespace ToDo.WebApi.Application.Services
 
         public ErrorOr<Account> Create(CreateAccount request)
         {
-            var user = _accountRepository.Create(_mapper.Map<Account>(request));
+            var account = _accountRepository.Create(_mapper!.Map<Account>(request));
 
-            if (user is null)
+            if (account is null)
                 return Errors.Repository.CreationFailed;
 
-            return user;
+            return account;
         }
 
         public ErrorOr<Account> Delete(Guid id)
@@ -53,7 +53,7 @@ namespace ToDo.WebApi.Application.Services
             if (account is null)
                 return Errors.Repository.NotFound;
 
-            account.Updated = DateTime.Now;
+            account.Updated = DateTime.UtcNow;
             //account.UpdatedBy = ""; // TODO: pull from httpcontext
             account.UpdatedByIP = ""; // TODO: pull from httpcontext
 

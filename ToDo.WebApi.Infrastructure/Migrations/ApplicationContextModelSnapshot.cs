@@ -186,9 +186,9 @@ namespace ToDo.WebApi.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp with time zone");

@@ -12,14 +12,14 @@ namespace ToDo.WebApi.Application.Fakers
 {
     public static class AccountFakers
     {
-        private static Faker<Account> _faker = 
+        private static Faker<Account> _faker =
             new Faker<Account>().CustomInstantiator(
                             fake => new()
                             {
                                 Id = fake.Random.Guid(),
                                 Name = fake.Person.FullName,
                                 TypeId = AccountTypes.Common,
-                                Created = DateTime.Now
+                                Created = DateTime.UtcNow
                             });
 
         public static Faker<Account> InternalFakerSetup()

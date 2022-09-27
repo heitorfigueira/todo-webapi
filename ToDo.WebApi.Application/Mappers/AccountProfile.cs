@@ -15,7 +15,7 @@ namespace ToDo.WebApi.Application.Mappers
         {
             CreateMap<CreateAccount, Account>()
                 .ForMember(account => account.Created, 
-                           opt => opt.MapFrom(c => DateTime.Now))
+                           opt => opt.MapFrom(c => DateTime.UtcNow))
                 .ForMember(account => account.CreatedBy,
                            opt => opt.MapFrom(c => "System Registration"));
         }

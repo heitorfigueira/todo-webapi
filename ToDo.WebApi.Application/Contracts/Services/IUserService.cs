@@ -15,5 +15,6 @@ namespace ToDo.WebApi.Application.Contracts.Services
         ErrorOr<User> Create(User user);
         ErrorOr<User> Delete(Guid id);
         ErrorOr<User?> Get(string email);
+        ErrorOr<User?> Get(Guid id);
     }
 }

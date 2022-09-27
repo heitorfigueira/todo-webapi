@@ -13,7 +13,7 @@ using ErrorOr;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class JwtService : ScopedService, IJwtService
+    public class JwtService : TransientService, IJwtService
     {
         private readonly JwtSettings _jwtSettings;
 
@@ -23,7 +23,7 @@ namespace ToDo.WebApi.Application.Services
         }
 
         public ErrorOr<string> GenerateTokenFrom<TUser>(TUser user)
-            where TUser : notnull, AuditableEntityBase<Guid, Guid>
+            where TUser : notnull, EntityBaseGUID
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
@@ -31,7 +31,8 @@ namespace ToDo.WebApi.Application.Services
             var claims = user.GetType()
                              .GetProperties()
                              .Where(prop => 
-                                 prop.Name != "Password")
+                                 prop.Name != "Password" && 
+                                 prop.GetValue(user) is not null)
                              .Select(prop => 
                                  new Claim(
                                     prop.Name, 
@@ -59,26 +60,35 @@ namespace ToDo.WebApi.Application.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public ErrorOr<int> ValidateToken(string token)
+        public ErrorOr<Guid> ValidateToken(string token)
         {
             if (token is null)
-                return Errors.Authentication.InvalidCredentials; //TODO: 
+                return Errors.Authentication.InvalidToken;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
+            SecurityToken validatedToken;
 
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ClockSkew = TimeSpan.Zero
+                }, out validatedToken);
+            }
+            catch (Exception ex)
+            {
+                return Errors.Authentication.InvalidAuthorizationBearer;
+            }
+            
             var jwtToken = validatedToken as JwtSecurityToken;
-            var userId = int.Parse(jwtToken!.Claims
-                                   .FirstOrDefault(x => x.Type == "id")!.Value);
+            var userId = Guid.Parse(jwtToken!.Claims
+                                   .FirstOrDefault(x => x.Type.ToLower() == "id")!.Value);
 
             return userId;
         }

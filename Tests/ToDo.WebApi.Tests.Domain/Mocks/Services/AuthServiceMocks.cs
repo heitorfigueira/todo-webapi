@@ -41,7 +41,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         {
             var mock = new Mock<IAuthService>();
             mock.Setup(service =>
-                    service.Signup(auth))
+                    service.Signup(auth, null))
                     .Returns(new Session());
 
             return mock;

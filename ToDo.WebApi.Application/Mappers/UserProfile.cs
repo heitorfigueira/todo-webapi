@@ -9,8 +9,8 @@ namespace ToDo.WebApi.Application.Mappers
         public UserProfile()
         {
             CreateMap<Auth, User>()
-                .ForMember(user => user.Created,
-                           opt => opt.MapFrom(c => DateTime.Now));
+                .ForMember(user => user.Id,
+                           opt => opt.MapFrom(c => Guid.NewGuid()));
         }
     }
 }

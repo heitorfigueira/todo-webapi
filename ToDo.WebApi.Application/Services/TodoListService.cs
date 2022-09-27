@@ -16,7 +16,7 @@ using System.Security.Principal;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class TodoListService : ScopedService, ITodoListService
+    public class TodoListService : TransientService, ITodoListService
     {
         private readonly ITodoItemService _itemService;
         private readonly ITodoListRepository _todoListRepository;

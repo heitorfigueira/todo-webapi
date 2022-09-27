@@ -8,29 +8,34 @@ using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class HashService : ScopedService, IHashService
+    public class HashService : SingletonService, IHashService
     {
         private readonly AuthSettings _authSettings;
-
-        public readonly Argon2i argonHasher;
 
         public HashService(IOptions<AuthSettings> options)
         {
             _authSettings = options.Value;
-            argonHasher = new(Encoding.ASCII.GetBytes(_authSettings.Secret));
-            argonHasher.Iterations = 10;
-            argonHasher.DegreeOfParallelism = 1;
-            argonHasher.MemorySize = 256;
         }
 
-        public string HashPassword(string password)
+        public string HashPassword(Guid salt, string password)
         {
-            return Encoding.ASCII.GetString(argonHasher.GetBytes(128));
+            Argon2i argonHasher = new(Encoding.ASCII.GetBytes(password));
+
+            argonHasher.DegreeOfParallelism = _authSettings.DegreeOfParallelism;
+            argonHasher.Iterations = _authSettings.Iterations;
+            argonHasher.MemorySize = _authSettings.MemorySize;
+
+            argonHasher.Salt = Encoding.ASCII.GetBytes(salt.ToString());
+            argonHasher.KnownSecret = Encoding.ASCII.GetBytes(_authSettings.Secret);
+
+            return Convert.ToHexString(argonHasher.GetBytes(128));
         }
 
-        public bool VerifyAgainstHashedPassword(string hashedPassword, string providedPassword)
+        public bool VerifyAgainstHashedPassword(Guid userId, string hashedPassword, string providedPassword)
         {
-            return hashedPassword.Equals(HashPassword(providedPassword));
+            var providedPasswordHash = HashPassword(userId, providedPassword);
+
+            return hashedPassword.Equals(providedPasswordHash);
         }
     }
 }

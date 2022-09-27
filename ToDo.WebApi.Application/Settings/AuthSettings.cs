@@ -10,5 +10,9 @@ namespace ToDo.WebApi.Application.Settings
     public class AuthSettings : Setting<AuthSettings>
     {
         public string Secret { get; set; }
+        public string Salt { get; set; }
+        public int DegreeOfParallelism { get; set; }
+        public int Iterations { get; set; }
+        public int MemorySize { get; set; }
     }
 }

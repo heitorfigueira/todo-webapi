@@ -15,6 +15,14 @@ public static partial class Errors
             Error.Unexpected(code: "Auth.InvalidCredentials",
                           description: "The user has provided invalid credentials.");
 
+        public static Error InvalidToken =
+            Error.Unexpected(code: "Auth.InvalidToken",
+                          description: "The user has provided an invalid authorization token.");
+
+        public static Error InvalidAuthorizationBearer =
+            Error.Unexpected(code: "Auth.InvalidAuthorizationBearer",
+                  description: "The request's authorization bearer couldn't be validated.");
+
         public static Error DuplicateEmail =
             Error.Unexpected(code: "Auth.DuplicateEmail",
                           description: "This emails already belongs to another user.");

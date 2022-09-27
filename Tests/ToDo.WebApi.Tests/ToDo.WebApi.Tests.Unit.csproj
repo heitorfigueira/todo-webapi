@@ -12,6 +12,7 @@
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="ErrorOr" Version="1.0.1" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="Moq" Version="4.18.2" />
@@ -27,7 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ToDo.WebApi.Tests.Domain\ToDo.WebApi.Tests.Domain.csproj" />
+    <ProjectReference Include="..\..\ToDo.WebApi.Application\ToDo.WebApi.Application.csproj" />
+    <ProjectReference Include="..\..\ToDo.WebApi.Interface\ToDo.WebApi.Interface.csproj" />
   </ItemGroup>
 
 </Project>

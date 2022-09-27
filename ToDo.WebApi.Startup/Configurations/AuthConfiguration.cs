@@ -8,7 +8,7 @@ namespace ToDo.WebApi.Startup.Configurations
     public class AuthConfiguration : IInstaller, IMiddlewareInstaller
     {
         public int InstallerOrder = 4;
-        public int MiddlewareOrder = 4;
+        public int MiddlewareOrder = 3;
 
         public void AddMiddlewareInstaller(WebApplication app)
         {
@@ -17,17 +17,20 @@ namespace ToDo.WebApi.Startup.Configurations
         }
         public void AddServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => options.TokenValidationParameters = new()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["JwtSettings:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration["JwtSettings:Secret"]))
-                });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options => options.TokenValidationParameters = new()
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["JwtSettings:Issuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(configuration["JwtSettings:Secret"]))
+            });
         }
     }
 }

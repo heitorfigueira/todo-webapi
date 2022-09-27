@@ -1,9 +1,6 @@
-﻿using ErrorOr;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.DTOs.Requests;
-using ToDo.WebApi.Domain.Entities;
 using WebApi.Framework.Controllers;
 
 namespace ToDo.WebApi.Interface.Controllers

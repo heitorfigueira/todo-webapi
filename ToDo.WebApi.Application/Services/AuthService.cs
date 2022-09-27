@@ -6,10 +6,11 @@ using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain;
 using WebApi.Framework.DependencyInjection;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace ToDo.WebApi.Application.Services
 {
-    public class AuthService : ScopedService, IAuthService
+    public class AuthService : TransientService, IAuthService
     {
         private readonly IJwtService _jwtService;
         private readonly IHashService _hashService;
@@ -27,8 +28,8 @@ namespace ToDo.WebApi.Application.Services
             var user = _userService.Get(request.Email);
 
             if (user.IsError || user.Value is null || 
-                !_hashService.VerifyAgainstHashedPassword(request.Password, user.Value.Password))
-                return Errors.Authentication.InvalidCredentials; //TODO: transform into list of errors, maybe git has the way to do it
+                !_hashService.VerifyAgainstHashedPassword(user.Value.Id, user.Value.Password, request.Password))
+                return Errors.Authentication.InvalidCredentials;
 
             var hashedPassword = _jwtService.GenerateTokenFrom(user.Value!);
 
@@ -37,19 +38,12 @@ namespace ToDo.WebApi.Application.Services
 
             return new Session()
             {
-                Content = hashedPassword.Value,
+                Token = hashedPassword.Value,
                 Started = DateTime.UtcNow
             };
         }
 
-        public ErrorOr<bool> Signoff()
-        {
-            // TODO: remove claims and session/user stuff from headers
-
-            return true;
-        }
-
-        public ErrorOr<Session> Signup(AuthRequests.Auth request)
+        public ErrorOr<Session> Signup(AuthRequests.Auth request, User? creatingUser = null)
         {
             var get = _userService.Get(request.Email);
 
@@ -58,10 +52,8 @@ namespace ToDo.WebApi.Application.Services
             else if (get.Value is not null)
                 return Errors.Authentication.DuplicateEmail;
 
-            var user = _mapper.Map<User>(request);
-            user.Password = _hashService.HashPassword(user.Password);
-
-            //user.CreatedBy = ""; //TODO: pull from httpcontext
+            var user = _mapper!.Map<User>(request);
+            user.Password = _hashService.HashPassword(user.Id, request.Password);
 
             var createdUser = _userService.Create(user);
 
@@ -75,7 +67,7 @@ namespace ToDo.WebApi.Application.Services
 
             return new Session()
             {
-                Content = content.Value,
+                Token = content.Value,
                 Started = DateTime.UtcNow
             };
         }

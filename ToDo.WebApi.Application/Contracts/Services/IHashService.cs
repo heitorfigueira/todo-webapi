@@ -8,7 +8,7 @@ namespace ToDo.WebApi.Application.Contracts.Services
 {
     public interface IHashService
     {
-        string HashPassword(string password);
-        bool VerifyAgainstHashedPassword(string hashedPassword, string providedPassword);
+        string HashPassword(Guid salt, string password);
+        bool VerifyAgainstHashedPassword(Guid userId, string hashedPassword, string providedPassword);
     }
 }

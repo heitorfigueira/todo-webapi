@@ -14,7 +14,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<IHashService> SetupVerifyLoginAuthCorrectPasswordReturnsTrue(this Mock<IHashService> mock, string authPassword, string userPassword)
         {
             mock.Setup(service =>
-                    service.VerifyAgainstHashedPassword(authPassword, userPassword))
+                    service.VerifyAgainstHashedPassword(It.IsAny<Guid>(), authPassword, userPassword))
                     .Returns(true);
 
             return mock;
@@ -22,7 +22,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<IHashService> SetupVerifyLoginAuthIncorrectPasswordReturnsFalse(this Mock<IHashService> mock, string authPassword, string userPassword)
         {
             mock.Setup(service =>
-                    service.VerifyAgainstHashedPassword(authPassword, userPassword))
+                    service.VerifyAgainstHashedPassword(It.IsAny<Guid>(), authPassword, userPassword))
                     .Returns(false);
 
             return mock;
@@ -33,7 +33,7 @@ namespace ToDo.WebApi.Tests.Unit.Setups.Services
         public static Mock<IHashService> SetupHashPasswordReturnsHashedPassword(this Mock<IHashService> mock, string hashedPassword)
         {
             mock.Setup(service =>
-                    service.HashPassword(It.IsAny<string>()))
+                    service.HashPassword(It.IsAny<Guid>(), It.IsAny<string>()))
                     .Returns(hashedPassword);
 
             return mock;

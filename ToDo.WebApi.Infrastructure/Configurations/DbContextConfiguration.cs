@@ -30,7 +30,9 @@ namespace ToDo.WebApi.Interface.Configurations
                     options.UseInMemoryDatabase(databaseName: "ApplicationLocalDb"));
             else
                 services.AddDbContext<ApplicationContext>(options =>
-                     options.UseNpgsql(configuration.GetConnectionString("DefaultDatabaseConnection")));
+                     options.UseNpgsql(configuration.GetConnectionString("DefaultDatabaseConnection"), options =>
+                     {
+                     }), ServiceLifetime.Transient, ServiceLifetime.Transient);
         }
 
         public void AddMiddlewareInstaller(WebApplication app)
@@ -52,25 +54,28 @@ namespace ToDo.WebApi.Interface.Configurations
             {
                 Id = adminId,
                 Email = "admin@admin.adm",
-                Password = hashService.HashPassword("Admin!234"),
-                Account = new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Seed Admin User",
-                    TypeId = AccountTypes.Administrator,
-                    Created = DateTime.Now,
-                    CreatedBy = adminId
-                },
-                Created = DateTime.Now,
-                CreatedBy = adminId
+                Password = hashService.HashPassword(adminId, "SuperAdmin!234")
             };
 
             applicationContext.Users.Add(adminUser);
-            applicationContext.Accounts.Add(adminUser.Account);
+
+            applicationContext.SaveChanges();
+
+            var user = applicationContext.Users.FirstOrDefault(user => user.Email == adminUser.Email);
+
+            var adminAccount = new Account()
+            {
+                Name = "Seed Admin User",
+                TypeId = AccountTypes.Administrator,
+                Created = DateTime.UtcNow,
+                CreatedBy = user.Id
+            };
+
+            applicationContext.Accounts.Add(adminAccount);
 
             var seedUsers = UserFakers.InternalFaker()
-                                .RuleFor(user => user.CreatedBy, adminUser.Id)
-                                .RuleFor(user => user.Password, faker => hashService.HashPassword(faker.Internet.Password()))
+                                .RuleFor(user => user.Password, 
+                                        (faker, user) => hashService.HashPassword(user.Id, faker.Internet.Password()))
                                 .Generate(Int32.Parse(app.Configuration["Randomizer:DefaultQuantityGeneration"]));
 
             seedUsers.ForEach(user =>

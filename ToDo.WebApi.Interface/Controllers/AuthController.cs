@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.WebApi.Application.Contracts.Services;
+using ToDo.WebApi.Domain.Entities;
 using WebApi.Framework.Controllers;
 using static ToDo.WebApi.Application.DTOs.Requests.AuthRequests;
 
@@ -19,35 +21,20 @@ namespace ToDo.WebApi.Interface.Controllers
 
         [HttpPost]
         [Route("signin")]
+        [AllowAnonymous]
         public IActionResult Signin(Auth request)
         {
-            return _authService.Signin(request)
-                .Match(session =>
-                {
-                    // TODO: add headers and define session user
-
-                    return Ok(session);
-                }, errors => Problem(errors));
-        }
-
-        [HttpPut]
-        [Route("signoff")]
-        public IActionResult Signoff()
-        {
-            return NoContentOrProblem(_authService.Signoff());
+            return OkOrProblem(_authService.Signin(request));
         }
 
         [HttpPost]
         [Route("signup")]
+        [AllowAnonymous]
         public IActionResult Signup(Auth request)
         {
-            return _authService.Signup(request)
-                .Match(session =>
-                {
-                    // TODO: add headers and define session user
+            var user = HttpContext.Items["User"] as User;
 
-                    return Ok(session);
-                }, errors => Problem(errors));
+            return OkOrProblem(_authService.Signup(request, user ?? null));
         }
     }
 }

@@ -27,13 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests.Unit", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests.Acceptance", "Tests\ToDo.WebApi.Tests.Acceptance\ToDo.WebApi.Tests.Acceptance.csproj", "{55C90122-176A-4BC8-9596-3B703B0940E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests.Domain", "Tests\ToDo.WebApi.Tests.Domain\ToDo.WebApi.Tests.Domain.csproj", "{170B81A5-44A0-4077-B4E2-62B4E75A2C21}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.WebApi.Tests.Integration", "Tests\Todo.WebApi.Tests.Integration\Todo.WebApi.Tests.Integration.csproj", "{A5096922-6BB9-4979-BA63-4B8C346EED96}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests.Integration.MockApis", "Tests\ToDo.WebApi.Tests.Integration.MockApis\ToDo.WebApi.Tests.Integration.MockApis.csproj", "{09F876CC-56E8-4CF9-9579-9EFBED0D5987}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi.Tests.Mutation", "Tests\ToDo.WebApi.Tests.Mutation\ToDo.WebApi.Tests.Mutation.csproj", "{270622CD-9C3A-410B-B8CA-F83C9DC68829}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,22 +67,10 @@ Global
 		{55C90122-176A-4BC8-9596-3B703B0940E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C90122-176A-4BC8-9596-3B703B0940E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C90122-176A-4BC8-9596-3B703B0940E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{170B81A5-44A0-4077-B4E2-62B4E75A2C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{170B81A5-44A0-4077-B4E2-62B4E75A2C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{170B81A5-44A0-4077-B4E2-62B4E75A2C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{170B81A5-44A0-4077-B4E2-62B4E75A2C21}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5096922-6BB9-4979-BA63-4B8C346EED96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5096922-6BB9-4979-BA63-4B8C346EED96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5096922-6BB9-4979-BA63-4B8C346EED96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5096922-6BB9-4979-BA63-4B8C346EED96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09F876CC-56E8-4CF9-9579-9EFBED0D5987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09F876CC-56E8-4CF9-9579-9EFBED0D5987}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09F876CC-56E8-4CF9-9579-9EFBED0D5987}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09F876CC-56E8-4CF9-9579-9EFBED0D5987}.Release|Any CPU.Build.0 = Release|Any CPU
-		{270622CD-9C3A-410B-B8CA-F83C9DC68829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{270622CD-9C3A-410B-B8CA-F83C9DC68829}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{270622CD-9C3A-410B-B8CA-F83C9DC68829}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{270622CD-9C3A-410B-B8CA-F83C9DC68829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,10 +78,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D35D8C7E-1F6A-41DC-9F51-36F71161F479} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
 		{55C90122-176A-4BC8-9596-3B703B0940E9} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
-		{170B81A5-44A0-4077-B4E2-62B4E75A2C21} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
 		{A5096922-6BB9-4979-BA63-4B8C346EED96} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
-		{09F876CC-56E8-4CF9-9579-9EFBED0D5987} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
-		{270622CD-9C3A-410B-B8CA-F83C9DC68829} = {AD4F9B8C-D8EA-4CA5-9B70-159C1F390524}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {11585B0A-63D3-4200-A9BC-C57B48C29E53}

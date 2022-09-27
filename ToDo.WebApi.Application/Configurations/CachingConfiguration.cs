@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using ToDo.WebApi.Application.Services;
-using WebApi.Framework.DataAccess.Caching;
+using WebApi.Framework.Caching;
 using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Application.Configurations
@@ -15,16 +15,16 @@ namespace ToDo.WebApi.Application.Configurations
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            if (environment == "Local" || environment == "Development")
+            if (environment == "Development" || environment == "Local")
                 ConfigureMemoryCache(services);
             else
                 ConfigureDistributedCache(services, configuration);
         }
 
-        private IServiceCollection ConfigureMemoryCache(IServiceCollection services)
+        public IServiceCollection ConfigureMemoryCache(IServiceCollection services)
         {
             services.AddLazyCache();
-            services.AddScoped<ICachingService, MemoryCacheService>();
+            services.AddTransient<ICachingService, MemoryCacheService>();
 
             return services;
         }
@@ -32,7 +32,7 @@ namespace ToDo.WebApi.Application.Configurations
         private IServiceCollection ConfigureDistributedCache(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDistributedMemoryCache();
-            services.AddScoped<ICachingService, DistributedCacheService>();
+            services.AddTransient<ICachingService, DistributedCacheService>();
 
             services.AddSingleton<IConnectionMultiplexer>(provider => 
                 ConnectionMultiplexer.Connect(
