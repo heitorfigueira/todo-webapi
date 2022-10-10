@@ -1,6 +1,6 @@
 ﻿using WebApi.Framework.Settings;
 
-namespace ToDo.WebApi.Application.Settings
+namespace ToDo.WebApi.Startup.Settings
 {
     public class JwtSettings : Setting<JwtSettings>
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Framework.Settings;
 
-namespace ToDo.WebApi.Application.Settings
+namespace ToDo.WebApi.Startup.Settings
 {
     public class ConnectionStrings : Setting<ConnectionStrings>
     {
