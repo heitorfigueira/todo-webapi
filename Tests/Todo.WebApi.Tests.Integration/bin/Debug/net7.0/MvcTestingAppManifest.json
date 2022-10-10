@@ -1,0 +1,8 @@
+{
+  "ToDo.WebApi.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application",
+  "ToDo.WebApi.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain",
+  "ToDo.WebApi.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Infrastructure",
+  "ToDo.WebApi.Interface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface",
+  "ToDo.WebApi.Startup, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Startup",
+  "WebApi.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework"
+}

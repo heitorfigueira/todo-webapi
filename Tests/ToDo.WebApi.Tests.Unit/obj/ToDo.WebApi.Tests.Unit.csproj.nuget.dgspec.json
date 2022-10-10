@@ -1,0 +1,509 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\Tests\\ToDo.WebApi.Tests.Unit\\ToDo.WebApi.Tests.Unit.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\Tests\\ToDo.WebApi.Tests.Unit\\ToDo.WebApi.Tests.Unit.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\Tests\\ToDo.WebApi.Tests.Unit\\ToDo.WebApi.Tests.Unit.csproj",
+        "projectName": "ToDo.WebApi.Tests.Unit",
+        "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\Tests\\ToDo.WebApi.Tests.Unit\\ToDo.WebApi.Tests.Unit.csproj",
+        "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\Tests\\ToDo.WebApi.Tests.Unit\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj"
+              },
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\ToDo.WebApi.Interface.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\ToDo.WebApi.Interface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoFixture": {
+              "target": "Package",
+              "version": "[4.17.0, )"
+            },
+            "AutoFixture.AutoMoq": {
+              "target": "Package",
+              "version": "[4.17.0, )"
+            },
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.7.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.3.2, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.2, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj",
+        "projectName": "ToDo.WebApi.Application",
+        "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj",
+        "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\ToDo.WebApi.Domain.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\ToDo.WebApi.Domain.csproj"
+              },
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "FakeItEasy": {
+              "target": "Package",
+              "version": "[7.3.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "LazyCache.AspNetCore": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.6.66, )"
+            },
+            "Throw": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\ToDo.WebApi.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\ToDo.WebApi.Domain.csproj",
+        "projectName": "ToDo.WebApi.Domain",
+        "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\ToDo.WebApi.Domain.csproj",
+        "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\ToDo.WebApi.Interface.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\ToDo.WebApi.Interface.csproj",
+        "projectName": "ToDo.WebApi.Interface",
+        "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\ToDo.WebApi.Interface.csproj",
+        "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Interface\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\todo-webapi\\ToDo.WebApi.Application\\ToDo.WebApi.Application.csproj"
+              },
+              "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj": {
+                "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj",
+        "projectName": "WebApi.Framework",
+        "projectPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\WebApi.Framework.csproj",
+        "packagesPath": "C:\\Users\\heito\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\heito\\Personal\\Projects\\C#\\webapi-framework\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\heito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "Konscious.Security.Cryptography.Argon2": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            },
+            "LazyCache.AspNetCore": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.2, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.12.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Serilog.Enrichers.AspNetCore": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Serilog.Enrichers.ClientInfo": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "Serilog.Enrichers.CorrelationId": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.Enrichers.EnrichedProperties": {
+              "target": "Package",
+              "version": "[1.0.63, )"
+            },
+            "Serilog.Enrichers.Process": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            },
+            "Serilog.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Serilog.Sinks.Seq": {
+              "target": "Package",
+              "version": "[5.2.1, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.6.66, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.23.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

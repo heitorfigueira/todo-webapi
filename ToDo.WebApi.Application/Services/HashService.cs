@@ -1,9 +1,8 @@
 ﻿using Konscious.Security.Cryptography;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Text;
 using ToDo.WebApi.Application.Contracts.Services;
-using ToDo.WebApi.Application.Settings;
+using ToDo.WebApi.Domain.Settings;
 using WebApi.Framework.DependencyInjection;
 
 namespace ToDo.WebApi.Application.Services

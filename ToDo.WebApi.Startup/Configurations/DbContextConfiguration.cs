@@ -10,7 +10,7 @@ using System.Data.Entity.Core.Metadata.Edm;
 using ToDo.WebApi.Application.Contracts.Services;
 using ToDo.WebApi.Application.Fakers;
 using ToDo.WebApi.Application.Services;
-using ToDo.WebApi.Application.Settings;
+using ToDo.WebApi.Domain.Settings;
 using ToDo.WebApi.Domain.Entities;
 using ToDo.WebApi.Domain.Enums;
 using ToDo.WebApi.Infrastructure.Contexts;
