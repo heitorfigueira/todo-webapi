@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Framework.Settings;
 
-namespace ToDo.WebApi.Startup.Settings
+namespace ToDo.WebApi.Domain.Settings
 {
     public class AuthSettings : Setting<AuthSettings>
     {

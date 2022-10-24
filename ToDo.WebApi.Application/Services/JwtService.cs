@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ToDo.WebApi.Application.Contracts.Services;
-using ToDo.WebApi.Application.Settings;
+using ToDo.WebApi.Domain.Settings;
 using WebApi.Framework.Data.Entities;
 using WebApi.Framework.DependencyInjection;
 using ToDo.WebApi.Domain;

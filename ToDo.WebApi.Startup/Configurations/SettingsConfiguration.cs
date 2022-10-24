@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ToDo.WebApi.Application.Settings;
+using ToDo.WebApi.Domain.Settings;
 using WebApi.Framework.Installers;
 
 namespace ToDo.WebApi.Startup.Configurations
